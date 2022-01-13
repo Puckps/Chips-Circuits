@@ -21,7 +21,7 @@ eind = (0, 2, 0)
 ax.scatter(0, 1, 0)
 ax.scatter(0, 2, 0)
 # plt.quiver(begin[0], begin[1], begin[2], eind[0], eind [1], eind[2], scale=1)
-ax.quiver(begin[0], begin[1], begin[2], eind[0], eind [1], eind[2], length=0.45)
+ax.quiver(begin[0], begin[1], begin[2], eind[0], eind[1], eind[2], length=0.45)
 
 
 plt.savefig('representation.png')
