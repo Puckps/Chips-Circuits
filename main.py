@@ -12,6 +12,17 @@ class Node():
     def is_gate(self):
         self.is_gate = True
 
+    def create_gate(self):
+        self._gate = Gate(self.coordinate, self.id)
+
+    def get_gate(self):
+        return self._gate
+
+class Gate():
+    def __init__(self, coordinate, id):
+        self.coordinate = coordinate
+        self.id = id
+
 # import the data of the gates 
 x_y = import_gates("print_2.csv")
 
