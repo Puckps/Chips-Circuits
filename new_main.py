@@ -3,28 +3,31 @@ from functions import get_neighbours, fastest_path
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import colors
+from sys import argv
 
 class Node():
-    def __init__(self, coordinate, id, is_nogate):
+    def __init__(self, coordinate):
         self.coordinate = coordinate          # x, y, z 
-        self.id = id
-        self.is_nogate = is_nogate
-        self.is_gate = False                  # true als node is a gate
+        self._gate = None                  # true als node is a gate
         self.neighbours = []                  # all neigbouring nodes for given node
 
-    def is_gate(self):
-        self.is_gate = True
-
-    def create_gate(self):
-        self._gate = Gate(self.coordinate, self.id)
+    def create_gate(self, id):
+        self._gate = Gate(self.coordinate, id)
 
     def get_gate(self):
         return self._gate
+
+    def get_coords(self):
+        return self.coordinate
 
 class Gate():
     def __init__(self, coordinate, id):
         self.coordinate = coordinate
         self.id = id
+
+    def get_coords(self):
+        return self.coordinate
+
 # add
 class Path():
     ''' Path object contains the begin-node and end-node from the netlist'''
@@ -32,12 +35,17 @@ class Path():
         self.gate_nodes = gate_nodes
         self.net = net
 
+if len(argv) != 3:
+    print("Usage: python3 filename main [gate file] [netist file]")
+gate_file = f"{argv[1]}.csv"
+net_file = f"{argv[2]}.csv"
+
 # add
 # import data on gates that have to be connected
-gate_connections = import_paths("netlist_1.csv")
+gate_connections = import_paths(net_file)
 
 # import the data of the gates 
-x_y = import_gates("print_0.csv")
+x_y = import_gates(gate_file)
 
 # import the dimensions
 max_x = get_dimensions(x_y)[0]
@@ -69,13 +77,17 @@ for j in x_y:
 for i in range(max_x):
     for k in range(max_y):
         coordinate = (i, k)
-        # if coordinate has a gate, nodes gets the id
+        # if coordinate has a gate, node object gets gate object
         if coordinate in coordinates_gate.values():
             id = get_key(coordinate)
-            nodes.append(Node(coordinate, id, False))
-        # if coordinate is empty, nodes get id 0
+            new_node = Node(coordinate)
+            new_node.create_gate(id)
+            nodes.append(new_node)
+
+        # if coordinate is empty, node object DOES NOT get gate object
         elif coordinate not in coordinates_gate.values():
-            nodes.append(Node(coordinate, 0, True))
+            new_node = Node(coordinate)
+            nodes.append(new_node)
 
 # add
 # add all the neighbouring nodes to all node objects
@@ -88,7 +100,7 @@ for node in nodes:
 # add
 # create list of all nodes with gates on them
 for node in nodes:
-    if node.is_nogate == False:
+    if node.get_gate() != None:
         gate_nodes.append(node)
 
 # add
@@ -99,11 +111,11 @@ for list_item in gate_connections:
     empty_list = []
     # add first gate
     for node in gate_nodes:
-        if node.id == list_item[0]:
+        if node.get_gate().id == list_item[0]:
             empty_list.append(node)
     # add second gate
     for node in gate_nodes:
-        if node.id == list_item[1]:
+        if node.get_gate().id == list_item[1]:
             empty_list.append(node)
     # create path-object with two gates
     paths.append(Path(empty_list, empty_net))
@@ -125,9 +137,9 @@ ax.set_xlabel('x')
 ax.set_xlim([max_x, 0])
 ax.set_ylim([0, max_y])
 ax.set_zlim([0, 8])
-for i in nodes:
-    if i.id != 0:
-        ax.scatter(i.coordinate[0], i.coordinate[1], 0) # plots the gates
+for node in nodes:
+    if node.get_gate() != None:
+        ax.scatter(node.get_coords()[0], node.get_coords()[1], 0) # plots the gates
 
 #cmap = colors.ListedColormap(['#ffffff', '#518c2a', '#ed2828', '#424141', '#4b87d1'])
 
