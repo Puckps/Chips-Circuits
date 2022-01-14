@@ -14,6 +14,20 @@ def import_gates(file):
 
     return gate_list
 
+def import_paths(file):
+    ''' Retrieve gates that have to be connected'''
+
+    with open(file) as infile:
+        reader = csv.reader(infile)
+        next(reader)
+
+        path_list = []
+        for line in reader:
+            gates = (int(line[0]), int(line[1]))
+            path_list.append(gates)
+    
+    return path_list
+
 
 def get_dimensions(gate_list):
     ''' Get highest x and y to infer grid size. '''
