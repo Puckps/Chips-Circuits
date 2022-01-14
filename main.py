@@ -1,16 +1,26 @@
-from load import import_gates, get_dimensions
+from load import import_gates, get_dimensions, create_grid
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 class Node():
-    def __init__(self, coordinate, id, is_nogate):
-        self.coordinate = coordinate          # x, y, z 
+    def __init__(self, coordinate, id):
+        self.coordinate = coordinate          # x, y 
         self.id = id
-        self.is_nogate = is_nogate
         self.is_gate = False                  # true als node is a gate
 
-    def is_gate(self):
+    def set_gate(self):
         self.is_gate = True
+
+
+class Gate():
+    def __init__ (self, id, coordiate_x, coordiate_y):
+        self.id = id
+        self.coordiate_x = coordiate_x
+        self.coordiate_y = coordiate_y
+        
+    def get_coordiate(self):
+        return self.coordiate_x, self.coordiate_y
+
 
 # import the data of the gates 
 x_y = import_gates("print_2.csv")
@@ -34,19 +44,23 @@ for j in x_y:
     coordinate_gate = j[1], j[2]
     # print(coordinate_gate)
     coordinates_gate[j[0]]= coordinate_gate
+print(coordinates_gate)
 
 # creeets all coordinates on the chip
 for i in range(max_x):
     for k in range(max_y):
         coordinate = (i, k)
+
         # if coordinate has a gate, nodes gets the id
         if coordinate in coordinates_gate.values():
             id = get_key(coordinate)
-            nodes.append(Node(coordinate, id, False))
+            nodes.append(Node(coordinate, id))
+
         # if coordinate is empty, nodes get id 0
         elif coordinate not in coordinates_gate.values():
-            nodes.append(Node(coordinate, 0, True))
+            nodes.append(Node(coordinate, 0))
 
+# print(nodes)
 print(len(nodes))            
 for i in nodes:
     print(i.coordinate)
