@@ -1,4 +1,4 @@
-from load import import_gates, get_dimensions, create_grid
+from load import import_gates, get_dimensions
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -11,16 +11,16 @@ class Node():
     def set_gate(self):
         self.is_gate = True
 
+    def create_gate(self):
+        self._gate = Gate(self.coordinate, self.id)
+
+    def get_gate(self):
+        return self._gate
 
 class Gate():
-    def __init__ (self, id, coordiate_x, coordiate_y):
+    def __init__(self, coordinate, id):
+        self.coordinate = coordinate
         self.id = id
-        self.coordiate_x = coordiate_x
-        self.coordiate_y = coordiate_y
-        
-    def get_coordiate(self):
-        return self.coordiate_x, self.coordiate_y
-
 
 # import the data of the gates 
 x_y = import_gates("print_2.csv")
