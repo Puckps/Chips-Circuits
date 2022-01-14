@@ -19,7 +19,7 @@ def get_dimensions(gate_list):
     ''' Get highest x and y to infer grid size. '''
     ## klopte nog niet helemaal nam namelijk de gate id inplaats van de x en daardoor nam hij de x als y
     ## kan nu dus ook zonder de +2 maar gwn de al bepaalde +1
-
+    
     max_x, max_y = 0, 0
 
     for gate in gate_list:
@@ -42,6 +42,18 @@ def create_grid(dimensions):
 
     return matrix
 
+def get_netlist(file):
+
+    with open(file) as infile:
+        reader = csv.reader(infile)
+        next(reader)
+
+        net_list = []
+        for line in reader:
+            net = int(line[0]), int(line[1])
+            net_list.append(net)
+
+    return net_list
 
 # gates = import_gates('print_0.csv')
 # print(gates)
