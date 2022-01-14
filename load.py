@@ -64,7 +64,7 @@ def get_netlist(file):
 
         net_list = []
         for line in reader:
-            net = int(line[0]), int(line[1])
+            net = f"({int(line[0])},{int(line[1])})"
             net_list.append(net)
 
     return net_list

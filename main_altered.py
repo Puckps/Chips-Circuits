@@ -33,7 +33,6 @@ net_file = f"data/{argv[2]}.csv"
 
 # import the data of the gates 
 x_y = import_gates(gate_file)
-print(x_y)
 
 # import the dimensions
 max_x = get_dimensions(x_y)[0]
@@ -75,9 +74,6 @@ for x in range(max_x):
 # for i in nodes:
 #     print(i.coordinate)
 #     print(i.id)
-
-for nets in get_netlist(net_file):
-    print(nets[0])
 
 # plots a figure of the gates in a 3d grid
 fig = plt.figure(figsize=(max_x,max_y))

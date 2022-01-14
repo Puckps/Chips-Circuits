@@ -1,15 +1,15 @@
+from operator import index
 from load import import_gates, get_dimensions, import_paths
 from functions import get_neighbours, fastest_path
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import colors
 from sys import argv
+import pandas as pd
 
 class Node():
     def __init__(self, coordinate):
-        self.coordinate = coordinate          # x, y, z 
-        self._gate = None                  # true als node is a gate
-        self.neighbours = []                  # all neigbouring nodes for given node
+        self.coordinate = coordinate            # x, y, z 
+        self._gate = None                       # true als node is a gate
+        self.neighbours = []                    # all neigbouring nodes for given node
 
     def create_gate(self, id):
         self._gate = Gate(self.coordinate, id)
@@ -28,6 +28,9 @@ class Gate():
     def get_coords(self):
         return self.coordinate
 
+    def get_id(self):
+        return self.id
+
 # add
 class Path():
     ''' Path object contains the begin-node and end-node from the netlist'''
@@ -36,9 +39,9 @@ class Path():
         self.net = net
 
 if len(argv) != 3:
-    print("Usage: python3 filename main [gate file] [netist file]")
-gate_file = f"{argv[1]}.csv"
-net_file = f"{argv[2]}.csv"
+    print("Usage: python3 filename main [gate file nr] [netist file nr]")
+gate_file = f"print_{argv[1]}.csv"
+net_file = f"netlist_{argv[2]}.csv"
 
 # add
 # import data on gates that have to be connected
@@ -46,7 +49,6 @@ gate_connections = import_paths(net_file)
 
 # import the data of the gates 
 x_y = import_gates(gate_file)
-
 # import the dimensions
 max_x = get_dimensions(x_y)[0]
 max_y = get_dimensions(x_y)[1]
@@ -69,7 +71,6 @@ def get_key(val):
 # makes dict with id = key en coordinate = value
 for j in x_y:
     coordinate_gate = j[1], j[2]
-    #print(coordinate_gate)
     coordinates_gate[j[0]]= coordinate_gate
 
 
@@ -121,19 +122,30 @@ for list_item in gate_connections:
     paths.append(Path(empty_list, empty_net))
 
 # add
+net_list = []
+path_list = []
+length = 0
 # add nets to the path-objects
 for path in paths:
     net = fastest_path(path.gate_nodes[0], path.gate_nodes[1])
     path.net = net
-    print(path.gate_nodes[0].coordinate, path.gate_nodes[1].coordinate)
-    print(path.net)
+    net_output = f"({int(path.gate_nodes[0].get_gate().id)},{int(path.gate_nodes[1].get_gate().id)})"
+    net_list.append(net_output)
+    path_list.append(path.net)
+    length = length + len(path.net)
+length = length - len(path_list)
+
+df = pd.DataFrame({"net": net_list, "wires": path_list})
+df2 = {"net": f"chip_{argv[1]}_net_{argv[2]}", "wires" : length}
+df = df.append(df2, ignore_index=True)
+df.to_csv("output.csv", index=False)
 
     
 # plots a figure of the gates in a 3d grid
 fig = plt.figure(figsize=(max_x,max_y))
-ax = fig.add_subplot(111, projection='3d')
-ax.set_ylabel('y')
-ax.set_xlabel('x')
+ax = fig.add_subplot(111, projection="3d")
+ax.set_ylabel("y")
+ax.set_xlabel("x")
 ax.set_xlim([max_x, 0])
 ax.set_ylim([0, max_y])
 ax.set_zlim([0, 8])
@@ -153,5 +165,4 @@ for path in paths:
             z.append(0)
         ax.plot(x,y,z)
 
-
-plt.savefig('representation.png')
+plt.savefig("representation.png")

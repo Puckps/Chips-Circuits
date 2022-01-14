@@ -1,4 +1,4 @@
-from load import import_gates, get_dimensions
+from load import import_gates, get_dimensions, create_grid
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -44,7 +44,6 @@ for j in x_y:
     coordinate_gate = j[1], j[2]
     # print(coordinate_gate)
     coordinates_gate[j[0]]= coordinate_gate
-print(coordinates_gate)
 
 # creeets all coordinates on the chip
 for i in range(max_x):
