@@ -1,49 +1,14 @@
-from operator import index
 from load import import_gates, get_dimensions, import_paths
-from functions import get_neighbours, fastest_path
-import matplotlib.pyplot as plt
+from functions import get_neighbours, fastest_path, plot_graph, get_key
 from sys import argv
 import pandas as pd
-
-class Node():
-    def __init__(self, coordinate):
-        self.coordinate = coordinate            # x, y, z 
-        self._gate = None                       # true als node is a gate
-        self.neighbours = []                    # all neigbouring nodes for given node
-
-    def create_gate(self, id):
-        self._gate = Gate(self.coordinate, id)
-
-    def get_gate(self):
-        return self._gate
-
-    def get_coords(self):
-        return self.coordinate
-
-class Gate():
-    def __init__(self, coordinate, id):
-        self.coordinate = coordinate
-        self.id = id
-
-    def get_coords(self):
-        return self.coordinate
-
-    def get_id(self):
-        return self.id
-
-# add
-class Path():
-    ''' Path object contains the begin-node and end-node from the netlist'''
-    def __init__(self, gate_nodes, net):
-        self.gate_nodes = gate_nodes
-        self.net = net
+from classes import Node, Path
 
 if len(argv) != 3:
     print("Usage: python3 filename main [gate file nr] [netist file nr]")
 gate_file = f"print_{argv[1]}.csv"
 net_file = f"netlist_{argv[2]}.csv"
 
-# add
 # import data on gates that have to be connected
 gate_connections = import_paths(net_file)
 
@@ -62,17 +27,10 @@ gate_nodes = []
 paths = []
 
 
-# gets the key of a dict by value 
-def get_key(val):
-    for key, value in coordinates_gate.items():
-         if val == value:
-             return key
-
 # makes dict with id = key en coordinate = value
 for j in x_y:
     coordinate_gate = j[1], j[2]
     coordinates_gate[j[0]]= coordinate_gate
-
 
 # creeets all coordinates on the chip
 for i in range(max_x):
@@ -80,7 +38,7 @@ for i in range(max_x):
         coordinate = (i, k)
         # if coordinate has a gate, node object gets gate object
         if coordinate in coordinates_gate.values():
-            id = get_key(coordinate)
+            id = get_key(coordinate, coordinates_gate)
             new_node = Node(coordinate)
             new_node.create_gate(id)
             nodes.append(new_node)
@@ -90,7 +48,6 @@ for i in range(max_x):
             new_node = Node(coordinate)
             nodes.append(new_node)
 
-# add
 # add all the neighbouring nodes to all node objects
 for node in nodes:
     neighbouring_nodes = get_neighbours(node, nodes)
@@ -98,13 +55,11 @@ for node in nodes:
     for i in range(len(neighbouring_nodes)):
         node.neighbours.append(neighbouring_nodes[i])
 
-# add
 # create list of all nodes with gates on them
 for node in nodes:
     if node.get_gate() != None:
         gate_nodes.append(node)
 
-# add
 # create list of objects that have to be connected
 list_connections = []
 empty_net = []
@@ -121,7 +76,6 @@ for list_item in gate_connections:
     # create path-object with two gates
     paths.append(Path(empty_list, empty_net))
 
-# add
 net_list = []
 path_list = []
 length = 0
@@ -129,9 +83,10 @@ length = 0
 for path in paths:
     net = fastest_path(path.gate_nodes[0], path.gate_nodes[1])
     path.net = net
+    path_str = str(path.net).replace(" ", "")
     net_output = f"({int(path.gate_nodes[0].get_gate().id)},{int(path.gate_nodes[1].get_gate().id)})"
     net_list.append(net_output)
-    path_list.append(path.net)
+    path_list.append(path_str)
     length = length + len(path.net)
 length = length - len(path_list)
 
@@ -140,29 +95,4 @@ df2 = {"net": f"chip_{argv[1]}_net_{argv[2]}", "wires" : length}
 df = df.append(df2, ignore_index=True)
 df.to_csv("output.csv", index=False)
 
-    
-# plots a figure of the gates in a 3d grid
-fig = plt.figure(figsize=(max_x,max_y))
-ax = fig.add_subplot(111, projection="3d")
-ax.set_ylabel("y")
-ax.set_xlabel("x")
-ax.set_xlim([max_x, 0])
-ax.set_ylim([0, max_y])
-ax.set_zlim([0, 8])
-for node in nodes:
-    if node.get_gate() != None:
-        ax.scatter(node.get_coords()[0], node.get_coords()[1], 0) # plots the gates
-
-#cmap = colors.ListedColormap(['#ffffff', '#518c2a', '#ed2828', '#424141', '#4b87d1'])
-
-# plot all the nets from the path-class
-for path in paths:
-    x, y, z = [], [], []
-    for net in path.net:
-        for coordinate in net:
-            x.append(net[0])
-            y.append(net[1])
-            z.append(0)
-        ax.plot(x,y,z)
-
-plt.savefig("representation.png")
+plot_graph(nodes, paths, max_x, max_y)

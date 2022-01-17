@@ -1,4 +1,5 @@
 import math
+import matplotlib.pyplot as plt
 
 # get all neighbouring nodes of any node
 def get_neighbours(current_node, nodes_list):
@@ -33,4 +34,34 @@ def fastest_path(begin_node, end_node):
         current_node = new_node
         net.append(current_node.coordinate)
     return net
-            
+
+def plot_graph(nodes, paths, max_x, max_y):
+    # plots a figure of the gates in a 3d grid
+    fig = plt.figure(figsize=(max_x,max_y))
+    ax = fig.add_subplot(111, projection="3d")
+    ax.set_ylabel("y")
+    ax.set_xlabel("x")
+    ax.set_xlim([max_x, 0])
+    ax.set_ylim([0, max_y])
+    ax.set_zlim([0, 8])
+    for node in nodes:
+        if node.get_gate() != None:
+            ax.scatter(node.get_coords()[0], node.get_coords()[1], 0) # plots the gates
+
+    # plot all the nets from the path-class
+    for path in paths:
+        x, y, z = [], [], []
+        for net in path.net:
+            for coordinate in net:
+                x.append(net[0])
+                y.append(net[1])
+                z.append(0)
+            ax.plot(x,y,z)
+
+    plt.savefig("representation.png")
+
+# gets the key of a dict by value 
+def get_key(val, dict):
+    for key, value in dict.items():
+         if val == value:
+             return key            
