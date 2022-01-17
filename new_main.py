@@ -6,8 +6,8 @@ from classes import Node, Path
 
 if len(argv) != 3:
     print("Usage: python3 filename main [gate file nr] [netist file nr]")
-gate_file = f"print_{argv[1]}.csv"
-net_file = f"netlist_{argv[2]}.csv"
+gate_file = f"/data/gates&netlists/chip_0/print_{argv[1]}.csv"
+net_file = f"/data/gates&netlists/chip_0/netlist_{argv[2]}.csv"
 
 # import data on gates that have to be connected
 gate_connections = import_paths(net_file)
