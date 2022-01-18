@@ -1,25 +1,29 @@
 import math
 import matplotlib.pyplot as plt
 
-# get all neighbouring nodes of any node
-def get_neighbours(current_node, nodes_list):
-    neighbours = []
-    x, y = current_node.coordinate
-    possible_neighbours = [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
-    for node in nodes_list:
-        if node.coordinate in possible_neighbours:
-            neighbours.append(node)
-    return neighbours
+# # get all neighbouring nodes of any node
+# ### in nodes class
+# def get_neighbours(current_node, nodes_list):
+#     neighbours = []
+#     x, y = current_node.coordinate
+#     possible_neighbours = [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
+#     for node in nodes_list:
+#         if node.coordinate in possible_neighbours:
+#             neighbours.append(node)
+#     return neighbours
 
 # get distance to any position
+### zegt iets over twee nodes, hulpfuctie of bij oath
 def get_distance(current_pos, direction):
-        x1, y1 = current_pos
-        x2, y2 = direction
+        x1, y1, z1 = current_pos
+        x2, y2, z2 = direction
         dx = x1 - x2
         dy = y1 - y2
-        return math.sqrt(dx ** 2 + dy ** 2)
+        dz = z1 - z2
+        return math.sqrt(dx ** 2 + dy ** 2 + dz ** 2)
 
 # calculate fastest path to end-node
+### 
 def fastest_path(begin_node, end_node):
     current_node = begin_node
     new_node = current_node
@@ -51,7 +55,7 @@ def plot_graph(nodes, paths, max_x, max_y):
     # plot all the nets from the path-class
     for path in paths:
         x, y, z = [], [], []
-        for net in path.net:
+        for net in path._path:
             for coordinate in net:
                 x.append(net[0])
                 y.append(net[1])

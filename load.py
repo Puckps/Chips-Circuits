@@ -8,9 +8,11 @@ def import_gates(file):
         next(reader)
 
         gate_list = []
+        coords = {}
         for line in reader:
-            coords = int(line[0]), int(line[1]), int(line[2])
+            coords[int(line[0])] = {(int(line[1]), int(line[2]), 0)} 
             gate_list.append(coords)
+
 
     return gate_list
 
@@ -31,9 +33,6 @@ def import_paths(file):
 
 def get_dimensions(gate_list):
     ''' Get highest x and y to infer grid size. '''
-    ## klopte nog niet helemaal nam namelijk de gate id inplaats van de x en daardoor nam hij de x als y
-    ## kan nu dus ook zonder de +2 maar gwn de al bepaalde +1
-    
     max_x, max_y = 0, 0
 
     for gate in gate_list:
