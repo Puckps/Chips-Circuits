@@ -1,7 +1,7 @@
 from functions import plot_graph
 from sys import argv
 import pandas as pd
-from board import Board
+from classes.board import Board
 
 
 if len(argv) != 3:

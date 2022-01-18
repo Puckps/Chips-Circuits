@@ -1,7 +1,8 @@
 import csv
 from functions import get_key
-from path import Path
-from node import Node
+from classes.path import Path
+from classes.node import Node
+
 
 class Board():
     def __init__(self, gate_file, net_file):

@@ -1,4 +1,4 @@
-from gate import Gate 
+from classes.gate import Gate 
 
 
 class Node():
