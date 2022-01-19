@@ -11,6 +11,7 @@ class Board():
         self._netlist = self.import_net(net_file)
         self._nodes = self.get_grid(self._dimensions)
 
+
         for node in self._nodes:
             node.gen_neighbours(self._nodes)
 
@@ -50,7 +51,7 @@ class Board():
 
             net_list = []
             for line in reader:
-                net = f"({int(line[0])},{int(line[1])})"
+                net = (int(line[0]),int(line[1]))
                 net_list.append(net)
 
         return net_list
@@ -88,13 +89,20 @@ class Board():
             netlist_gates = []
             # add first gate
             for node in gate_nodes:
-                if node.get_gate().id == int(list_item[1]):
+                if node.get_gate().id == list_item[0]:
                     netlist_gates.append(node)
             # add second gate
             for node in gate_nodes:
-                if node.get_gate().id == int(list_item[3]):
+                if node.get_gate().id == list_item[1]:
                     netlist_gates.append(node)
             # create path-object with two gates
             path_list.append(Path(netlist_gates))
 
         return path_list
+    
+    def calculate_costs(self):
+        costs = 0
+        for path in self._paths:
+            costs += len(path._path) - 1
+        return costs
+
