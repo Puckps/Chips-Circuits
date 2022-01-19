@@ -6,6 +6,7 @@ class Node():
         self._coordinate = coordinate            # x, y, z 
         self._gate = None                        # true als node is a gate
         self._neighbours = []                    # all neigbouring nodes for given node
+        self._occupied = False
 
     def create_gate(self, id):
         self._gate = Gate(self._coordinate, id)
@@ -27,3 +28,6 @@ class Node():
 
     def get_neighbours(self):
         return self._neighbours
+    
+    def set_occupied(self):
+        self._occupied = True
