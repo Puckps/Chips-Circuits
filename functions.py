@@ -1,5 +1,6 @@
 import math
 import matplotlib.pyplot as plt
+import numpy as np
 
 # # get all neighbouring nodes of any node
 # ### in nodes class
@@ -51,18 +52,45 @@ def plot_graph(nodes, paths, max_x, max_y):
     for node in nodes:
         if node.get_gate() != None:
             ax.scatter(node.get_coords()[0], node.get_coords()[1], 0) # plots the gates
-
+            # plt.annotate(node.get_gate().id, (node.get_coords()[0], node.get_coords()[1]))
     # plot all the nets from the path-class
     for path in paths:
         x, y, z = [], [], []
         for net in path._path:
-            for coordinate in net:
-                x.append(net[0])
-                y.append(net[1])
-                z.append(0)
+            x.append(net[0])
+            y.append(net[1])
+            z.append(net[2])
             ax.plot(x,y,z)
+            
+    for angle in range(0, 360):
+        ax.view_init(30, angle)
+
+        plt.pause(.001)
 
     plt.savefig("representation.png")
+
+def plot_2d(nodes, paths, max_x, max_y):
+
+    plt.figure(figsize=(max_x, max_y))
+
+    plt.xticks(range(max_x))
+    plt.yticks(range(max_y))
+    plt.xlabel("X")
+    plt.ylabel("Y")
+
+    for node in nodes:
+        if node.get_gate() != None:
+            plt.scatter(node.get_coords()[0], node.get_coords()[1])
+            plt.annotate(node.get_gate().id, (node.get_coords()[0], node.get_coords()[1]))
+
+    for path in paths:
+        x, y = [], []
+        for net in path._path:
+            x.append(net[0])
+            y.append(net[1])
+            plt.plot(x, y)
+            
+    plt.savefig("2d_representation.png")
 
 # gets the key of a dict by value 
 def get_key(val, dict):

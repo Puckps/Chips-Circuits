@@ -17,6 +17,11 @@ class Node():
     def get_coords(self):
         return self._coordinate
 
+    def has_gate(self):
+        if self._gate != None:
+            return True
+        return False
+
     def gen_neighbours(self, nodes_list):
         neighbours = []
         x, y, z= self._coordinate
