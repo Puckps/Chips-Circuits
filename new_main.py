@@ -20,8 +20,8 @@ length = 0
 for path in board._paths:
     #net = path.shortest_path()
     greedy = Greedy(path)
+    
     greedy.run_greedy()
-    print(path._path)
     net = path._path
     path_str = str(net).replace(" ", "")
     net_output = f"({int(path._net_gates[0].get_gate().id)},{int(path._net_gates[1].get_gate().id)})"

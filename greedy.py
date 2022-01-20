@@ -18,7 +18,7 @@ class Greedy:
         return
 
     def closest_node(self, current_node, end_node):
-        min_distance = 100
+        min_distance = 10000
         closest_node = current_node
         for neighbour in current_node._neighbours:
             if neighbour._occupied == False:
@@ -41,6 +41,10 @@ class Greedy:
                 elif neighbour == end_node:
                     min_distance = distance
                     closest_node = neighbour
+                # else:
+                #     if distance < min_distance:
+                #         min_distance = distance
+                #         closest_node = neighbour
 
         if closest_node != end_node:
             closest_node.set_occupied()

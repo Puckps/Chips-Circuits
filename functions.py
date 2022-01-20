@@ -61,11 +61,6 @@ def plot_graph(nodes, paths, max_x, max_y):
             y.append(net[1])
             z.append(net[2])
             ax.plot(x,y,z)
-            
-    for angle in range(0, 360):
-        ax.view_init(30, angle)
-
-        plt.pause(.001)
 
     plt.savefig("representation.png")
 

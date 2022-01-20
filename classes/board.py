@@ -104,8 +104,11 @@ class Board():
         costs = 0
         for path in self._paths:
             costs += len(path._path) - 1
-        total_cost = costs + 300*self.calc_intersections()
-
+        total_cost = costs + 300*self.calc_intersections() + 500*self.calc_used_gate()
+        print(f"cost = {costs}")
+        print(f"intersections = {self.calc_intersections()}")
+        print(f"gate = {self.calc_used_gate()}")
+        print(f"totaal {total_cost}")
         return total_cost
 
     def calc_intersections(self):
@@ -114,10 +117,17 @@ class Board():
             for node in path._path[1:-1]:
                 list_nodes.append(node)
         set_nodes = set(list_nodes)
-
+        
         return (len(list_nodes) - len(set_nodes))
 
-            
+    def calc_used_gate(self):
+        used_list = []
+        for path in self._paths:
+            for node in path._path[1:-1]:
+                for cor in self._gates.values():
+                    if cor == node:
+                        used_list.append(node)
+        return(len(used_list))     
 
     def check_gate(self, node):
         if node._gate != None:

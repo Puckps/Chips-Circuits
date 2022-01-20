@@ -14,7 +14,7 @@ class Path():
         new_node = current_node
         self._path = [current_node._coordinate]
         while current_node != self._net_gates[1]:
-            min_distance = 100
+            min_distance = 10000
             for neighbour in current_node._neighbours:
                 distance = get_distance(neighbour._coordinate, self._net_gates[1]._coordinate)
                 if distance < min_distance:
