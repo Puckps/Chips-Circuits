@@ -16,12 +16,22 @@ import numpy as np
 # get distance to any position
 ### zegt iets over twee nodes, hulpfuctie of bij oath
 def get_distance(current_pos, direction):
-        x1, y1, z1 = current_pos
-        x2, y2, z2 = direction
-        dx = x1 - x2
-        dy = y1 - y2
-        dz = z1 - z2
-        return math.sqrt(dx ** 2 + dy ** 2 + dz ** 2)
+    x1, y1, z1 = current_pos
+    x2, y2, z2 = direction
+    dx = x1 - x2
+    dy = y1 - y2
+    dz = z1 - z2
+    return math.sqrt(dx ** 2 + dy ** 2 + dz ** 2)
+
+
+    
+def manhattan_distince(begin_node, end_node):
+    x = begin_node.get_coords()[0] - end_node.get_coords()[0]
+    y = begin_node.get_coords()[1] - end_node.get_coords()[1]
+    z = begin_node.get_coords()[3] - end_node.get_coords()[3]
+
+    manhattan_distance = abs(x) + abs(y) + abs(z)
+    return manhattan_distance
 
 # calculate fastest path to end-node
 ### 
