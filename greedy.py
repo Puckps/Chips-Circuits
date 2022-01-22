@@ -1,5 +1,5 @@
 import classes
-from functions import get_distance
+from functions import get_distance, manhattan_distince
 
 class Greedy:
     """
@@ -18,7 +18,7 @@ class Greedy:
         return
 
     def closest_node(self, current_node, end_node):
-        min_distance = 10000
+        min_distance = 100000
         closest_node = current_node
         for neighbour in current_node._neighbours:
             if neighbour._occupied == False:
@@ -41,13 +41,40 @@ class Greedy:
                 elif neighbour == end_node:
                     min_distance = distance
                     closest_node = neighbour
-                # else:
-                #     if distance < min_distance:
-                #         min_distance = distance
-                #         closest_node = neighbour
+        #         else:
+        #             if distance < min_distance:
+        #                 min_distance = distance
+        #                 closest_node = neighbour
 
         if closest_node != end_node:
             closest_node.set_occupied()
         self.path._path.append(closest_node.get_coords())
         return closest_node
-    
+
+    def node_closest(self, current_node, end_node):
+        min = 1000
+        best_node = current_node
+
+        if current_node.neighbour_end(end_node):
+            for neighbour in current_node.get_neighbours():
+                if neighbour == end_node:
+                    best_node = neighbour
+        else:
+            for neighbour in current_node.possible_neighbours():
+                dis = neighbour.manhattan_distince(end_node.get_coords())
+                if dis < min:
+                    min = dis
+                    best_node = neighbour
+
+            if best_node == current_node:
+                for neighbour in current_node._neighbours:
+                    dis = neighbour.manhattan_distince(end_node.get_coords())
+                    if neighbour.has_gate() == False:
+                        if dis < min:
+                            min = dis
+                            best_node = neighbour
+
+        if best_node != end_node:
+            best_node.set_occupied()
+        self.path._path.append(best_node.get_coords())
+        return best_node
