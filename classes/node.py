@@ -36,3 +36,27 @@ class Node():
     
     def set_occupied(self):
         self._occupied = True
+
+    def possible_neighbours(self):
+        possible_neighbours = []
+        for neighbour in self._neighbours:
+            if neighbour._occupied == False:
+                if neighbour.has_gate() == False:
+                    possible_neighbours.append(neighbour)
+        return possible_neighbours
+
+    def manhattan_distince(self, end_node):
+        x1, y1, z1 = self._coordinate
+        x2, y2, z2 = end_node
+        x = x1 - x2
+        y = y1 - y2
+        z = z1 - z2
+
+        manhattan_distance = abs(x) + abs(y) + abs(z)
+        return manhattan_distance
+
+    def neighbour_end(self, end_node):
+        for neighbour in self._neighbours:
+            if neighbour == end_node:
+                return True
+        return False
