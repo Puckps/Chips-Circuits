@@ -41,7 +41,7 @@ class Board():
             if gates[1] > max_y:
                 max_y = gates[1]
 
-        dimensions = max_x + 1, max_y + 1
+        dimensions = max_x + 2, max_y + 2
         return dimensions
 
     def import_net(self, net_file):
@@ -132,3 +132,6 @@ class Board():
     def check_gate(self, node):
         if node._gate != None:
             return True
+    
+    # def get_nodes(self):
+    #     return self._nodes

@@ -7,6 +7,10 @@ class Node():
         self._gate = None                        # true als node is a gate
         self._neighbours = []                    # all neigbouring nodes for given node
         self._occupied = False
+        self._f_cost = None
+        self._h_cost = None
+        self._g_cost = None
+        self._parent = None
 
     def create_gate(self, id):
         self._gate = Gate(self._coordinate, id)

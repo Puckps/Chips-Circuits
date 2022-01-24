@@ -3,6 +3,7 @@ from sys import argv
 import pandas as pd
 from classes.board import Board
 from greedy import Greedy
+from a_star import A_star
 
 
 if len(argv) != 3:
@@ -18,11 +19,14 @@ length = 0
 
 # add nets to the path-objects
 for path in board._paths:
+    a_star = A_star(path)
+    a_star.run_a_star()
     #net = path.shortest_path()
-    greedy = Greedy(path)
-    
-    greedy.run_greedy()
+    #greedy = Greedy(path)
+    #greedy.run_greedy()
+
     net = path._path
+    print(net)
     path_str = str(net).replace(" ", "")
     net_output = f"({int(path._net_gates[0].get_gate().id)},{int(path._net_gates[1].get_gate().id)})"
     net_list.append(net_output)
