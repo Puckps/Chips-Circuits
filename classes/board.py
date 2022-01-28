@@ -1,16 +1,15 @@
 import csv
-from functions import get_key
+from functions import get_key, manhattan_distince
 from classes.path import Path
 from classes.node import Node
 
 
 class Board():
     def __init__(self, gate_file, net_file):
-        self._gates = self.import_gates(gate_file)
+        self._gates = gate_file
         self._dimensions = self.get_dimensions(self._gates)
-        self._netlist = self.import_net(net_file)
+        self._netlist = net_file
         self._nodes = self.get_grid(self._dimensions)
-
 
         for node in self._nodes:
             node.gen_neighbours(self._nodes)
@@ -18,17 +17,17 @@ class Board():
         self._paths = self.gen_path()
 
 
-    def import_gates(self, net_file):
-        ''' Get gate coordinates from print file. '''
+    # def import_gates(self, gates_file):
+    #     ''' Get gate coordinates from print file. '''
 
-        with open(net_file) as infile:
-            reader = csv.reader(infile)
-            next(reader)
+    #     with open(gates_file) as infile:
+    #         reader = csv.reader(infile)
+    #         next(reader)
 
-            coords_dict = {}
-            for line in reader:
-                coords_dict[int(line[0])] = (int(line[1]), int(line[2]), 0)
-        return coords_dict
+    #         coords_dict = {}
+    #         for line in reader:
+    #             coords_dict[int(line[0])] = (int(line[1]), int(line[2]), 0)
+    #     return coords_dict
     
     def get_dimensions(self, gate_dict):
         ''' Get highest x and y to infer grid size. '''
@@ -44,17 +43,17 @@ class Board():
         dimensions = max_x + 2, max_y + 2
         return dimensions
 
-    def import_net(self, net_file):
-        with open(net_file) as infile:
-            reader = csv.reader(infile)
-            next(reader)
+    # def import_net(self, net_file):
+    #     with open(net_file) as infile:
+    #         reader = csv.reader(infile)
+    #         next(reader)
 
-            net_list = []
-            for line in reader:
-                net = (int(line[0]),int(line[1]))
-                net_list.append(net)
+    #         net_list = []
+    #         for line in reader:
+    #             net = (int(line[0]),int(line[1]))
+    #             net_list.append(net)
 
-        return net_list
+    #     return net_list
 
     def get_grid(self, dimensions):
         node_list = []
@@ -97,19 +96,20 @@ class Board():
                     netlist_gates.append(node)
             # create path-object with two gates
             path_list.append(Path(netlist_gates))
-
         return path_list
     
     def calculate_costs(self):
         costs = 0
         for path in self._paths:
             costs += len(path._path) - 1
-        total_cost = costs + 300*self.calc_intersections() + 500*self.calc_used_gate()
-        print(f"cost = {costs}")
-        print(f"intersections = {self.calc_intersections()}")
-        print(f"gate = {self.calc_used_gate()}")
-        print(f"totaal {total_cost}")
-        return total_cost
+            if not path._path:
+                costs += 100000
+
+        total_cost = costs + 300*self.calc_intersections() 
+        # print(f"cost = {costs}")
+        # print(f"intersections = {self.calc_intersections()}")
+        # print(f"totaal = {total_cost}")
+        return costs, self.calc_intersections(), total_cost
 
     def calc_intersections(self):
         list_nodes = []
@@ -133,5 +133,3 @@ class Board():
         if node._gate != None:
             return True
     
-    # def get_nodes(self):
-    #     return self._nodes

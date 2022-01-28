@@ -1,13 +1,9 @@
 from functions import plot_graph, plot_2d, plot_hill_graph
 from sys import argv
 import pandas as pd
-from classes.board import Board
-from greedy import Greedy
-from a_star import A_star
 
 from load import import_gates, import_net
 from hill_climber import HillClimber
-import copy
 
 from netlist_functions import *
 
@@ -31,7 +27,7 @@ max_reverts = int(argv[4])
 # net_list = copy.deepcopy(least_used_gate(net_list))
 
 HC = HillClimber(net_list, gate_list)
-results = HC.run(restarts, max_reverts)
+results = HC.run_new(restarts, max_reverts)
 
 board = results[0]
 costs = results[1]
@@ -50,7 +46,7 @@ for path in board._paths:
 
 # generate output file
 df = pd.DataFrame({"net": net_list, "wires": path_list})
-df2 = {"net": f"chip_{argv[1]}_net_{argv[2]}", "wires" : costs[3]}
+df2 = {"net": f"chip_{argv[1]}_net_{argv[2]}", "wires" : costs[2]}
 df = df.append(df2, ignore_index=True)
 df.to_csv("output.csv", index=False)
 

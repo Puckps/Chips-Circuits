@@ -4,6 +4,7 @@ import copy
 
 from classes.board import Board
 from a_star import A_star
+from netlist_functions import random_netlist, swap_netlist
 
 class HillClimber:
     """
@@ -112,6 +113,90 @@ class HillClimber:
         print()
 
         return (board, costs, hill_list)
+
+    def run_new(self, restarts, max_reverts):
+
+        dict_of_used_netlist= {}
+        self.restarts = restarts
+        self.max_reverts = max_reverts
+
+        for i in range(restarts):
+            net_file_list = copy.deepcopy(self.net_list_original)
+            random_start_netlist = random_netlist(net_file_list)
+
+            if str(random_start_netlist) in dict_of_used_netlist.keys():
+                random_start_netlist = random_netlist(net_file_list)
+            
+            self.repeats = 0
+            self.revert_counter = 0
+
+            # create board for current net list
+            board = Board(self.gate_list, random_start_netlist)
+
+            # add nets to the path-objects
+            for path in board._paths:
+                a_star = A_star(path)
+                a_star.run_a_star()
+
+            # calculate and display costs
+            costs = board.calculate_costs()
+
+            print(f"{i}.{self.repeats}", end="")
+            print(f"\tcost = {costs[0]}")
+            print(f"\tintersections = {costs[1]}")
+            print(f"\ttotal = {costs[2]}")
+            print()
+
+            # append netlists and total costs to dictonary
+            dict_of_used_netlist[str(random_start_netlist)] = costs[2]
+
+        print()
+        # sorteds the dictonary by total costs 
+        sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
+
+
+        for i in range(max_reverts):
+            for i in range(len(sorted_netlist[:5])):
+
+                # makes 1 swap in the top best netlist
+                list_of = eval(sorted_netlist[i]) 
+                mutation = swap_netlist(list_of)
+
+                # create board for current net list
+                board = Board(self.gate_list, mutation)
+
+                # add nets to the path-objects
+                for path in board._paths:
+                    a_star = A_star(path)
+                    a_star.run_a_star()
+
+                # calculate and display costs
+                costs = board.calculate_costs()
+
+                print(f"{i}.{self.repeats}", end="")
+                print(f"\tcost = {costs[0]}")
+                print(f"\tintersections = {costs[1]}")
+                print(f"\ttotal = {costs[2]}")
+                print()
+                dict_of_used_netlist[str(mutation)]=costs[2]
+
+        sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
+        print(f"end_dict = {dict_of_used_netlist}")
+        print()
+        print("BEST CONFIG:")
+        print(f"net_list = {sorted_netlist[0]}")
+        best_board = Board(self.gate_list, eval(sorted_netlist[0]))
+
+        for path in best_board._paths:
+            a_star = A_star(path)
+            a_star.run_a_star()
+        best_costs = best_board.calculate_costs()
+
+        print(f"cost = {best_costs[0]}")
+        print(f"intersections = {best_costs[1]}")
+        print(f"total = {best_costs[2]}")
+        print()
+        return (best_board, best_costs, best_costs)
 
     def compare_costs(self, costs):
         if self.repeats == 0 or costs < self.lowest_costs:

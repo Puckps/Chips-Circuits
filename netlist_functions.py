@@ -4,10 +4,12 @@ import random
 def swap_netlist(netlist):
     number_1 = random.randrange(1, len(netlist))
     number_2 = random.randrange(1, len(netlist))
-    netlist[number_2], netlist[number_1] = netlist[number_1], netlist[number_2]
+    netlist[0], netlist[number_1] = netlist[number_1], netlist[0]
+    return netlist
 
 def reverse_netlist(netlist):
     netlist.reverse()
+    return netlist
 
 def most_used_gate(netlist):
     list_net = [item for t in netlist for item in t]
@@ -48,5 +50,7 @@ def least_used_gate(netlist):
     netlist = new_list
 
 def random_netlist(netlist):
+    
     random.shuffle(netlist)
+    return netlist
 

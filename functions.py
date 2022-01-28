@@ -28,7 +28,7 @@ def get_distance(current_pos, direction):
 def manhattan_distince(begin_node, end_node):
     x = begin_node.get_coords()[0] - end_node.get_coords()[0]
     y = begin_node.get_coords()[1] - end_node.get_coords()[1]
-    z = begin_node.get_coords()[3] - end_node.get_coords()[3]
+    z = begin_node.get_coords()[2] - end_node.get_coords()[2]
 
     manhattan_distance = abs(x) + abs(y) + abs(z)
     return manhattan_distance
@@ -102,3 +102,9 @@ def get_key(val, dict):
     for key, value in dict.items():
          if val == value:
              return key            
+
+def plot_hill_graph(hill_list):
+    # plots cost graph for hill climber
+    plt.clf()
+    plt.plot(hill_list)
+    plt.savefig("hill_graph.png")
