@@ -141,10 +141,10 @@ class HillClimber:
             # calculate and display costs
             costs = board.calculate_costs()
 
-            print(f"{i}.{self.repeats}", end="")
-            print(f"\tcost = {costs[0]}")
-            print(f"\tintersections = {costs[1]}")
-            print(f"\ttotal = {costs[2]}")
+            print(i)
+            # print(f"\tcost = {costs[0]}")
+            # print(f"\tintersections = {costs[1]}")
+            # print(f"\ttotal = {costs[2]}")
             print()
 
             # append netlists and total costs to dictonary
@@ -161,6 +161,8 @@ class HillClimber:
                 # makes 1 swap in the top best netlist
                 list_of = eval(sorted_netlist[i]) 
                 mutation = swap_netlist(list_of)
+                if str(mutation) in dict_of_used_netlist.keys():
+                    mutation = random_netlist(list_of)
 
                 # create board for current net list
                 board = Board(self.gate_list, mutation)
@@ -173,15 +175,15 @@ class HillClimber:
                 # calculate and display costs
                 costs = board.calculate_costs()
 
-                print(f"{i}.{self.repeats}", end="")
-                print(f"\tcost = {costs[0]}")
-                print(f"\tintersections = {costs[1]}")
-                print(f"\ttotal = {costs[2]}")
+                print(i)
+                # print(f"\tcost = {costs[0]}")
+                # print(f"\tintersections = {costs[1]}")
+                # print(f"\ttotal = {costs[2]}")
                 print()
                 dict_of_used_netlist[str(mutation)]=costs[2]
 
         sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
-        print(f"end_dict = {dict_of_used_netlist}")
+        # print(f"end_dict = {dict_of_used_netlist}")
         print()
         print("BEST CONFIG:")
         print(f"net_list = {sorted_netlist[0]}")
@@ -196,7 +198,7 @@ class HillClimber:
         print(f"intersections = {best_costs[1]}")
         print(f"total = {best_costs[2]}")
         print()
-        return (best_board, best_costs, best_costs)
+        return (best_board, best_costs, sorted_netlist[0])
 
     def compare_costs(self, costs):
         if self.repeats == 0 or costs < self.lowest_costs:
