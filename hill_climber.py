@@ -4,7 +4,7 @@ import copy
 
 from classes.board import Board
 from a_star import A_star
-from netlist_functions import random_netlist, swap_netlist
+from netlist_functions import multi_swap, random_netlist, swap_netlist
 
 class HillClimber:
     """
@@ -160,9 +160,12 @@ class HillClimber:
 
                 # makes 1 swap in the top best netlist
                 list_of = eval(sorted_netlist[i]) 
-                mutation = swap_netlist(list_of)
+                # mutation = swap_netlist(list_of)
+                # if str(mutation) in dict_of_used_netlist.keys():
+                #     mutation = swap_netlist(list_of)
+                mutation = multi_swap(list_of)
                 if str(mutation) in dict_of_used_netlist.keys():
-                    mutation = random_netlist(list_of)
+                    mutation = multi_swap(list_of)
 
                 # create board for current net list
                 board = Board(self.gate_list, mutation)
