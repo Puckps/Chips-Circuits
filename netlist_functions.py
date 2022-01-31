@@ -3,9 +3,16 @@ import random
 
 def swap_netlist(netlist):
     number_1 = random.randrange(1, len(netlist))
-    number_2 = random.randrange(1, len(netlist))
+    # number_2 = random.randrange(1, len(netlist))
     netlist[0], netlist[number_1] = netlist[number_1], netlist[0]
     return netlist
+
+def multi_swap(netlist):
+    for i in range(10):
+        number_1 = random.randrange(1, len(netlist))
+        netlist[0], netlist[number_1] = netlist[number_1], netlist[0]
+    return netlist
+    
 
 def reverse_netlist(netlist):
     netlist.reverse()
