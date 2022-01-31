@@ -1,3 +1,4 @@
+from operator import index
 from functions import plot_graph, plot_2d, plot_hill_graph
 from sys import argv
 import pandas as pd
@@ -49,6 +50,12 @@ df = pd.DataFrame({"net": net_list, "wires": path_list})
 df2 = {"net": f"chip_{argv[1]}_net_{argv[2]}", "wires" : costs[2]}
 df = df.append(df2, ignore_index=True)
 df.to_csv("output.csv", index=False)
+
+
+best_df = pd.DataFrame({"netlist": [eval(hill_list)],"score": [costs[2]], "intersections": [costs[1]], "restarts": [argv[3]], "max_reverts": [argv[4]]})
+
+with open(f"output/chip_{argv[1]}/output_netlist_{argv[2]}.csv", 'a') as f:
+    best_df.to_csv(f, header=False, index=False)
 
 # plot graphs
 plot_graph(board._nodes, board._paths, board._dimensions[0], board._dimensions[1])
