@@ -6,25 +6,25 @@ Voor de minor Programmeren aan de UvA hebben wij de opdracht gekregen om de pade
 Om de case goed te begrijpen zijn de gebruikte termen hieronder uitgelegt.
 ![Terminologie](doc/terminologie_chips&circuts.PNG)
 <br />
-De locaties van de gates en de volgoorde van het leggen van de paden zijn gegeven. In de [data folder](data) zijn de verschillende chips met bijbehorende netlists (lijsten met de volgoordes van het leggen van de paden) te vinden. Per chip zijn er 3 van deze netlist gegeven. Om te kunnen berekenen of een oplossing beter is dan een andere oplossing is er ook een formule gegeven voor de kosten van de oplossing.
+De locaties van de gates en de volgorde van het leggen van de paden zijn gegeven. In de [data folder](data) zijn de verschillende chips met bijbehorende netlists (lijsten met de volgordes van het leggen van de paden) te vinden. Per chip zijn er 3 van deze netlist gegeven. Om te kunnen berekenen of een oplossing beter is dan een andere oplossing is er ook een formule gegeven voor de kosten van de oplossing.
 
 ```C = n + k * 300``` 
 <br />Hierin is **C** de totale kosten, **n** het aantal stukjes pad wat is gelegd en **k** het aantal kruisingen, deze zijn dus wel toegestaan maar krijgen extreem veel strafpunten. Het doel is dus om zo min mogelijk kosten te maken.
 
 ## State Space
 Zonder een oplossing te hebben gemaakt hebben wij een inschatting gemaakt van de State Space van deze case. 
-Aangezien de chip een grote heeft van 15 x 16 x 8 heeft 1920 nodes, op elke node kan wel of geen pad worden gelegd. Hierdoor hebben we 1920 keuzemomenten met twee keuzes, hiervan is de volgoorde belangrijk. <br />
+Aangezien de chip een grootte heeft van 15 x 16 x 8 zijn er 1920 nodes, en op elke node kan wel of geen pad worden gelegd. Hierdoor hebben we 1920 keuzemomenten met twee keuzes, hiervan is de volgorde belangrijk. <br />
 ![Formule tabel](doc/formule.PNG) 
 <br />Met deze formule zijn wij op een State Space van 2^1920 gekomen. 
 
 ## BaseLine
-Voor de BaseLine hebben wij een Greedy geschreven aangezien het random leggen van paden niet op een antwoord zou uitkomen. In ons Greedy algoritme hebben bekijken we welke volgende stap van het pad het dichts bij het eindpunt ligt. Dit doet het Greedy algoritme totdat hij bij de eind-node is aangekomen.
+Voor de BaseLine hebben wij een Greedy geschreven aangezien het random leggen van paden niet op een antwoord zou uitkomen. In ons Greedy algoritme bekijken we welke volgende stap van het pad het dichtst bij het eindpunt ligt. Dit doet het Greedy algoritme totdat hij bij de eind-node is aangekomen.
 
 **Werking**<br />
 Voor het runnen van het Greedy algoritme moet je deze activeren in de main.py<br />
 ```python3 main.py {de gewenste chip} {de gewenste netlist}```
 <br />
-Wanneer dit gerunt wordt ontstaat er een output file en de daarbij horende representatie. 
+Wanneer dit gerund wordt ontstaat er een output file en de daarbij horende representatie. 
 
 ### Uitkomsten
 | Chip  | Netlist   	| Kosten   | Aantal intersections |
@@ -59,7 +59,7 @@ Uit de open-nodes wordt telkens de node gekozen met de laagste F-cost en de laag
 Voor het runnen van het A* algoritme moet je deze activeren in de main.py<br />
 ```python3 main.py {de gewenste chip} {de gewenste netlist}```
 <br />
-Wanneer dit gerunt wordt ontstaat er een output file en de daarbij horende representatie. Dit algoritme zorgt dat de uitkomt altijd het zelfde is.
+Wanneer dit gerund wordt ontstaat er een output file en de daarbij horende representatie. Dit algoritme zorgt dat de uitkomt altijd het zelfde is.
 
 ### Uitkomsten
 | Chip  | Netlist   	| Kosten   | Aantal intersections |
@@ -75,16 +75,16 @@ Wanneer dit gerunt wordt ontstaat er een output file en de daarbij horende repre
 | _2    | netlist_9     | 35.677   | 115                  |
 
 <br />
-Bij de Baseline waren de uitkomsten nog niet valide door het dubbel gebruiken van paden en door het gebruiken van gates in de paden. De uitkomsten van de A* zijn wel allemaal valide. Ook zijn ze ten opzichte van de Baseline vlink verbeterd.  
+Bij de Baseline waren de uitkomsten nog niet valide door het dubbel gebruiken van paden en door het gebruiken van gates in de paden. De uitkomsten van de A* zijn wel allemaal valide. Ook zijn ze ten opzichte van de Baseline flink verbeterd.
 
 ## Algoritme 2
-Het tweede algoritme is een hill climber die de volgorde bepaald waarop paden gelegd moeten worden. De paden worden dus <ins>niet</ins> halverwege weggehaald en opnieuw aangelegd, er wordt enkel aan het begin van het leggen een volgorde bepaald waar aan vast wordt gehouden. De paden worden d.m.v. het eerder genoemde A* algoritme gelegd. Vervolgens worden steeds de netlists met de laagste kosten geselecteerd om kleine mutaties op toe te passen, waarna deze stap veelvuldig herhaald wordt.
+Het tweede algoritme is een hill climber die de volgorde bepaald waarop paden gelegd moeten worden. De paden worden dus <ins>niet</ins> halverwege weggehaald en opnieuw aangelegd, er wordt enkel aan het begin van het leggen een volgorde bepaald waar aan vast wordt gehouden. De paden worden d.m.v. het eerder genoemde A* algoritme gelegd. Vervolgens worden steeds de netlists met de laagste kosten geselecteerd om kleine mutaties (paden verwisselen) op toe te passen, waarna deze stap veelvuldig herhaald wordt.
 
 **Werking**<br />
 Voor het runnen van het Hill Climber algoritme moet je deze activeren in de main.py <br />
 ```python3 main.py {de gewenste chip} {de gewenste netlist} {het aantal restarts} {het aantal keer verbeteren}```
 <br />
-Als uitkomst krijg je dan de beste gevonde uitkomt met de daarbij horende output file en representatie. Deze uitkomst is niet altijd dezelfde uitkomst, dit komt doordat de volgoorde van de netlist random gekozen worden. 
+Als uitkomst krijg je dan de beste gevonde uitkomt met de daarbij horende output file en representatie. Deze uitkomst is niet altijd dezelfde uitkomst, dit komt doordat de volgorde van de netlist random gekozen worden. 
 
 ### Uitkomsten
 | Chip  | Netlist   	| Kosten   | Aantal intersections |
@@ -99,7 +99,7 @@ Als uitkomst krijg je dan de beste gevonde uitkomt met de daarbij horende output
 | _2    | netlist_8     | 14.680   | 46                   |
 | _2    | netlist_9     | 26.657   | 85                   |
 <br />
-De Hill Climber gebruikt het A* algoritme wat er voor zorgt dat alle oplossingen valide zijn. Door het toepassen van een Hill Climber op de volgoorde van de netlist kunnen we betere scores halen. De scores die zijn weer gegeven bij een begin populatie van 20 en het 20 keer verbeteren van de beste 5. 
+De Hill Climber gebruikt het A* algoritme wat er voor zorgt dat alle oplossingen valide zijn. Door het toepassen van een Hill Climber op de volgorde van de netlist kunnen we betere scores halen. De scores die zijn weer gegeven bij een begin populatie van 20 en het 20 keer verbeteren van de beste 5. 
 
 ## Experiment
 Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
@@ -111,11 +111,11 @@ Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
 **Experiment 1**
 <br />
 Voor experiment 1 hebben wij gekeken naar het effect van het aantal swaps op de hill-climber uitkomsten. Hiervoor hebben wij de hillclimber gedraaid met slechts 1 verwisseling van de netlist, met 5 verwisselingen van de netlist en met 10 verwisselingen in de netlist. Elk van de drie condities is tien keer gedraaid op chip 1 met netlist 5.
-| swaps | Gemiddelde score | 
-| ----- | ---------------- |
-| 1     | 11.787           |
-| 5     | 10.599           |
-| 10    | 11.343           | 
+| swaps | gem. kosten | 
+| ----- | ----------- |
+| 1     | 11.787      |
+| 5     | 10.599      |
+| 10    | 11.343      | 
 
 Uit de resultaten komt naar voren dat een hillclimber waarbij telkens 5 items uit de netlist worden verwisseld het beste presteert. 
 
@@ -133,7 +133,7 @@ Geen van deze aantallen gaf beduidend lagere kosten (zie tabel), maar we hebben 
 
 **Experiment 3**
 <br />
-Wij hebben voor chip 1 en 2 gekeken wat het veranderen van het aantal restarts en het aantal herhalingen doet op de uitkomst. Hieruit blijkt dat hoe meer restarts je doet hoe meer kans op een betere oplossing. Dit is ook goed te verklaren aangezien de restart random volgoordens van netlists zijn. Dus hoe meer verschillende volgoordens hoe meer kans op een volgoorde die bij een goede score past.
+Wij hebben voor chip 1 en 2 gekeken wat het veranderen van het aantal restarts en het aantal herhalingen doet op de uitkomst. Hieruit blijkt dat hoe meer restarts je doet hoe meer kans op een betere oplossing. Dit is ook goed te verklaren aangezien de restart random volgordes van netlists zijn. Dus hoe meer verschillende volgordens hoe meer kans op een volgorde die bij een goede score past.
 Wel hebben we ook gemerkt dat er na een hoeveelheid restarts de uitkomsten niet meer groot veranderen. 
 
 **Experiment 4**
@@ -152,4 +152,4 @@ Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe
 | _2    | netlist_8     | 578             | 1056                          |
 | _2    | netlist_9     | 761             | 2879 met 5 int                |
 <br />
-Het laatste experiment is gerunt met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. 
+Het laatste experiment is gerund met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. 
