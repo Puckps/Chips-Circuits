@@ -3,7 +3,7 @@ representation.png
 2d_representation.png
 hill_graph.png
 uitkomsten.txt
-__pycache__
+**/__pycache__/
 main_a_star.py
 main_greedy.py
 main_hill_climber.py

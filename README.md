@@ -104,18 +104,18 @@ Wel hebben we ook gemerkt dat er na een hoeveelheid restarts de uitkomsten niet 
 
 **Experiment 4**
 <br />
-Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe hoger het pad gaat hoe goedkoper de kosten worden. Deze uitkomsten zijn te zien in onderstaande tabel, hierin zijn ook de optimale kosten per netlist en chip weergeven. Dit zijn de kosten wanneer alle paden via de kortste weg worden gelegd zonder rekening te houden met intersections, gates en het dubbel gebruiken van paden. 
+Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe hoger het pad gaat hoe goedkoper de kosten worden. Door dit experiment hebben wij nu alle chips kunnen oplossen zonder intersections. Deze uitkomsten zijn te zien in onderstaande tabel, hierin zijn ook de optimale kosten per netlist en chip weergeven. Dit zijn de kosten wanneer alle paden via de kortste weg worden gelegd zonder rekening te houden met intersections, gates en het dubbel gebruiken van paden. 
 <br />
 | Chip  | Netlist   	| Optimale kosten | Kosten uit laatste experiment |
 | ----- | ------------- | --------------- | ----------------------------- |
-| _0    | netlist_1     | 20              |                               |
-| _0    | netlist_2     | 35              |                               |
-| _0    | netlist_3     | 48              |                               |
+| _0    | netlist_1     | 20              | 22                            |
+| _0    | netlist_2     | 35              | 43                            |
+| _0    | netlist_3     | 48              | 60                            |
 | _1    | netlist_4     | 291             |                               |
 | _1    | netlist_5     | 341             |                               |
-| _1    | netlist_6     | 475             |                               |
+| _1    | netlist_6     | 475             | 843                           |
 | _2    | netlist_7     | 600             |                               |
 | _2    | netlist_8     | 578             |                               |
 | _2    | netlist_9     | 761             |                               |
 <br />
-Het laatste experiment is gerunt met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters.
+Het laatste experiment is gerunt met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. 

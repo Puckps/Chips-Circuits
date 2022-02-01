@@ -131,7 +131,6 @@ best_df = pd.DataFrame({"netlist": [eval(hill_list)],"score": [costs[2]], "inter
 with open(f"output/chip_{argv[1]}/output_netlist_{argv[2]}.csv", 'a') as f:
     best_df.to_csv(f, header=False, index=False)
 
-print(f"optimal {dis}")
 
 
 # ------------------------------------ Output ------------------------------------
