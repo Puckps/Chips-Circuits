@@ -18,7 +18,7 @@ Aangezien de chip een grote heeft van 15 x 16 x 8 heeft 1920 nodes, op elke node
 <br />Met deze formule zijn wij op een State Space van 2^1920 gekomen. 
 
 ## BaseLine
-Voor de BaseLine hebben wij een Greedy geschreven aangezien het random leggen van paden niet op een antwoord zou uitkomen. In ons Greedy algoritme hebben bekijken we welke volgende stap van het pad het dichts bij het eindpunt ligt. 
+Voor de BaseLine hebben wij een Greedy geschreven aangezien het random leggen van paden niet op een antwoord zou uitkomen. In ons Greedy algoritme hebben bekijken we welke volgende stap van het pad het dichts bij het eindpunt ligt. Dit doet het Greedy algoritme totdat hij bij de eind-node is aangekomen.
 
 **Werking**<br />
 Voor het runnen van het Greedy algoritme moet je deze activeren in de main.py<br />
@@ -42,7 +42,18 @@ Wanneer dit gerunt wordt ontstaat er een output file en de daarbij horende repre
 De scores die uit de baseline komen zijn nog niet valide. Dit komt doordat de intersections niet op een geldige manier worden gebruikt. Het kan zo zijn dat ze pad stukken dubbelbezetten. Ook is er te zien dat bij chip_2 er nog gates worden gebruikt om paden te kunnen leggen. Om te zorgen dat dit zo min mogelijk gebeurd hebben we hier wel een kosten van 500 aangegeven. 
 
 ## Algoritme 1
-Aangezien onze Baseline nog niet voor alle chip valide uitkomsten genereerde zijn wij overgestapt naar een A* algoritme, 
+Het eerste algoritme dat wij hebben geimplementeerd is het A* algoritme. Dit algoritme vindt altijd een pad naar het eindpunt wanneer er een pad bestaat.
+
+Het A* algoritme maakt gebruikt van 3 soorten kosten:
+1. G-cost: Afstand van pad naar begin-node.
+2. H-cost: Afstand naar de eind-node.
+3. F-cost: H-cost + G-cost.
+
+De A* houdt ten alle tijden 2 lijsten bij:
+1. Open nodes.
+2. Gesloten nodes.
+
+Uit de open-nodes wordt telkens de node gekozen met de laagste F-cost en de laagste H-cost gehaald. Deze node wordt vervolgens in de gesloten nodes gezet en zijn buren worden toegevoegd aan de open-nodes. Dit process gaat net zo lang door totdat het algoritme aankomt bij de eind-node. 
 
 **Werking**<br />
 Voor het runnen van het A* algoritme moet je deze activeren in de main.py<br />
@@ -97,6 +108,17 @@ Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
 3. Ook zijn we gaan kijken wat het invloed is als de aantal restarts en het aantal herhalingen groeit. 
 4. Als laatste hebben wij toegevoegd dat hoe hoger het pad gaat hoe goedkoper het leggen van een pad is. 
 
+**Experiment 1**
+<br />
+Voor experiment 1 hebben wij gekeken naar het effect van het aantal swaps op de hill-climber uitkomsten. Hiervoor hebben wij de hillclimber gedraaid met slechts 1 verwisseling van de netlist, met 5 verwisselingen van de netlist en met 10 verwisselingen in de netlist. Elk van de drie condities is tien keer gedraaid op chip 1 met netlist 5.
+|swaps  | gemiddelde score | 
+| ----- | -------------    |
+| _1    | 11.787           |
+| _5    | 10.599           |
+| _10   | 11.343           | 
+
+Uit de resultaten komt naar voren dat een hillclimber waarbij telkens 5 items uit de netlist worden verwisseld het beste presteert. 
+
 **Experiment 3**
 <br />
 Wij hebben voor chip 1 en 2 gekeken wat het veranderen van het aantal restarts en het aantal herhalingen doet op de uitkomst. Hieruit blijkt dat hoe meer restarts je doet hoe meer kans op een betere oplossing. Dit is ook goed te verklaren aangezien de restart random volgoordens van netlists zijn. Dus hoe meer verschillende volgoordens hoe meer kans op een volgoorde die bij een goede score past.
@@ -112,10 +134,10 @@ Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe
 | _0    | netlist_2     | 35              | 43                            |
 | _0    | netlist_3     | 48              | 60                            |
 | _1    | netlist_4     | 291             |                               |
-| _1    | netlist_5     | 341             |                               |
-| _1    | netlist_6     | 475             | 843                           |
+| _1    | netlist_5     | 341             |  609                          |
+| _1    | netlist_6     | 475             |  843                          |
 | _2    | netlist_7     | 600             |                               |
-| _2    | netlist_8     | 578             |                               |
+| _2    | netlist_8     | 578             |  1056                         |
 | _2    | netlist_9     | 761             |                               |
 <br />
 Het laatste experiment is gerunt met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. 
