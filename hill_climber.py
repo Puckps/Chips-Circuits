@@ -160,12 +160,12 @@ class HillClimber:
 
                 # makes 1 swap in the top best netlist
                 list_of = eval(sorted_netlist[i]) 
-                # mutation = swap_netlist(list_of)
-                # if str(mutation) in dict_of_used_netlist.keys():
-                #     mutation = swap_netlist(list_of)
-                mutation = multi_swap(list_of)
+                mutation = swap_netlist(list_of)
                 if str(mutation) in dict_of_used_netlist.keys():
-                    mutation = multi_swap(list_of)
+                    mutation = swap_netlist(list_of)
+                # mutation = multi_swap(list_of)
+                # if str(mutation) in dict_of_used_netlist.keys():
+                #     mutation = multi_swap(list_of)
 
                 # create board for current net list
                 board = Board(self.gate_list, mutation)

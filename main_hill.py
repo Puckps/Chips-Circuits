@@ -54,7 +54,7 @@ df.to_csv("output.csv", index=False)
 
 best_df = pd.DataFrame({"netlist": [eval(hill_list)],"score": [costs[2]], "intersections": [costs[1]], "restarts": [argv[3]], "max_reverts": [argv[4]]})
 
-with open(f"output/chip_{argv[1]}/output_netlist_{argv[2]}.csv", 'a') as f:
+with open(f"output/chip_{argv[1]}/output_netlist_{argv[2]}.csv", "a") as f:
     best_df.to_csv(f, header=False, index=False)
 
 # plot graphs
