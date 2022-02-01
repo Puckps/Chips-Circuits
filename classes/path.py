@@ -26,3 +26,7 @@ class Path():
 
     def get_path(self):
         return self._path
+
+    def optimal_path(self):
+        distance = manhattan_distince(self._net_gates[0], self._net_gates[1])
+        return distance

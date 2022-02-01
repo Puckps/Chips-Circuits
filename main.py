@@ -5,6 +5,7 @@ import pandas as pd
 from code.algoritme.greedy import Greedy
 from code.algoritme.a_star_priority import A_star
 from code.algoritme.hill_climber import HillClimber
+from classes.path import Path
 
 
 from code.functions.functions import plot_graph
@@ -130,7 +131,7 @@ best_df = pd.DataFrame({"netlist": [eval(hill_list)],"score": [costs[2]], "inter
 with open(f"output/chip_{argv[1]}/output_netlist_{argv[2]}.csv", 'a') as f:
     best_df.to_csv(f, header=False, index=False)
 
-
+print(f"optimal {dis}")
 
 
 # ------------------------------------ Output ------------------------------------

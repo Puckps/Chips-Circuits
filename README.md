@@ -13,7 +13,8 @@ De locaties van de gates en de volgoorde van het leggen van de paden zijn gegeve
 
 ## State Space
 Zonder een oplossing te hebben gemaakt hebben wij een inschatting gemaakt van de State Space van deze case. 
-Aangezien de chip een grote heeft van 15 x 16 x 8 heeft 1920 nodes, op elke node kan wel of geen pad worden gelegd. Hierdoor hebben we 1920 keuzemomenten met twee keuzes, hiervan is de volgoorde belangrijk. ![Formule tabel](doc/formule.PNG) 
+Aangezien de chip een grote heeft van 15 x 16 x 8 heeft 1920 nodes, op elke node kan wel of geen pad worden gelegd. Hierdoor hebben we 1920 keuzemomenten met twee keuzes, hiervan is de volgoorde belangrijk. <br />
+![Formule tabel](doc/formule.PNG) 
 <br />Met deze formule zijn wij op een State Space van 2^1920 gekomen. 
 
 ## BaseLine
@@ -69,3 +70,10 @@ Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
 <br />
 Wij hebben voor chip 1 en 2 gekeken wat het veranderen van het aantal restarts en het aantal herhalingen doet op de uitkomst. Hieruit blijkt dat hoe meer restarts je doet hoe meer kans op een betere oplossing. Dit is ook goed te verklaren aangezien de restart random volgoordens van netlists zijn. Dus hoe meer verschillende volgoordens hoe meer kans op een volgoorde die bij een goede score past.
 Wel hebben we ook gemerkt dat er na een hoeveelheid restarts de uitkomsten niet meer groot veranderen. 
+
+**Optimale paden**
+<br />
+Wanneer elk pad zonder onderbrekingen kan worden neergelegd komen de volgende scores uit de chips en netlists: 
+<br />
+
+![Optimale kosten per netlist](doc/optimale_kosten.PNG)
