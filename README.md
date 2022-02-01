@@ -17,15 +17,27 @@ Aangezien de chip een grote heeft van 15 x 16 x 8 heeft 1920 nodes, op elke node
 ## BaseLine
 Voor de BaseLine hebben wij een Greedy geschreven aangezien het random leggen van paden niet op een antwoord zou uitkomen. In ons Greedy algoritme hebben bekijken we welke volgende stap van het pad het dichts bij het eindpunt ligt. 
 
+**Werking**
+
 ### Uitkomsten
 
 
 ## Algoritme 1
 Aangezien onze Baseline nog niet voor alle chip valide uitkomsten genereerde zijn wij overgestapt naar een A* algoritme, 
 
+**Werking**
+
 ### Uitkomsten
 
 ## Algoritme 2
 De eerder gemaakte A* hebben wij voor het tweede algoritme gebruikt om een Hill Climber op te zetten. Hierin wordt de volgoorden van de netlist gesuffeld en vervolgens worden er in de beste netlist steeds kleine aanpassingen gemaakt om nog beter te worden.
 
+**Werking**
+
 ### Uitkomsten
+
+## Experiment
+Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
+1. Het swappen van mindere onderdelen in de netlist inplaats van 1 net naar voren te plaatsen
+2. Met het huidige algoritme hadden wij gekozen dat de beste 5 door gingen naar de "volgende ronde". Deze parameter hebben wij voor een experiment verhoogt en verlaagt.
+3. Als laatste zijn we gaan kijken wat het invloed is als de aantal restarts en het aantal herhalingen groeit. 
