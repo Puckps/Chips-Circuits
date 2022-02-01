@@ -5,8 +5,7 @@ from queue import Empty, PriorityQueue
 
 class Data: 
 
-    def __init__(self, score1, score2, node, id):
-
+    def __init__(self,score1,score2,node, id):
         self.f_cost=score1
         self.h_cost=score2
         self.node=node
@@ -58,12 +57,12 @@ class A_star:
                 return
             
             # check if neighbours are traversable
-            for neighbour in current_node._neighbours_copy:
+            for neighbour in current_node._neighbours:
                 if neighbour in closed_nodes or (neighbour.has_gate() and neighbour != self.end_node and neighbour != self.begin_node):
                     continue
                 
                 # check whether new path to neighbour is shorter or if neighbour is not yet in the open-list
-                NewMovementCostToNeighbour = current_node._g_cost + manhattan_distince(current_node, neighbour)
+                NewMovementCostToNeighbour = current_node._g_cost + 1 + self.check_z_value(neighbour)                      #manhattan_distince(current_node, neighbour)
                 if neighbour._occupied == True:
                     NewMovementCostToNeighbour += 300
                 if (neighbour._g_cost != None and NewMovementCostToNeighbour < neighbour._g_cost) or self.check_open_nodes(neighbour, open_nodes) == False: #neighbour not in open_nodes:
@@ -78,6 +77,13 @@ class A_star:
                         open_nodes.put(Data(neighbour._f_cost, neighbour._h_cost, neighbour, id))
                         #open_nodes.append(neighbour)
 
+    def check_z_value(self, node):
+        height = node._coordinate[2]
+        height_cost = {0: 8, 1: 7, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2, 7: 1, 8: 0}
+        # height_cost = {0: 8, 1: 7, 2: 6, 3: 5, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
+
+        cost = height_cost[height]
+        return cost
 
     def check_open_nodes(self, neighbour, open_nodes):
         for items in open_nodes.queue:
@@ -130,7 +136,6 @@ class A_star:
     def remove_neighbours(self, path):
         for i in range(len(path)):
             if i != 0:
-                path[i]._neighbours_copy.remove(path[i-1])
+                path[i]._neighbours.remove(path[i-1])
             if i != len(path)-1:
-                path[i]._neighbours_copy.remove(path[i+1])
-
+                path[i]._neighbours.remove(path[i+1])
