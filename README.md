@@ -86,7 +86,3 @@ Wanneer elk pad zonder onderbrekingen kan worden neergelegd komen de volgende sc
 | _2    | netlist_7     | 600             |                               |
 | _2    | netlist_8     | 578             |                               |
 | _2    | netlist_9     | 761             |                               |
-
-
-
-![Optimale kosten per netlist](doc/optimale_kosten.PNG)
