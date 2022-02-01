@@ -111,8 +111,8 @@ Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
 **Experiment 1**
 <br />
 Voor experiment 1 hebben wij gekeken naar het effect van het aantal swaps op de hill-climber uitkomsten. Hiervoor hebben wij de hillclimber gedraaid met slechts 1 verwisseling van de netlist, met 5 verwisselingen van de netlist en met 10 verwisselingen in de netlist. Elk van de drie condities is tien keer gedraaid op chip 1 met netlist 5.
-|swaps  | gemiddelde score | 
-| ----- | -------------    |
+| swaps | Gemiddelde score | 
+| ----- | ---------------- |
 | 1     | 11.787           |
 | 5     | 10.599           |
 | 10    | 11.343           | 
@@ -126,18 +126,18 @@ Wel hebben we ook gemerkt dat er na een hoeveelheid restarts de uitkomsten niet 
 
 **Experiment 4**
 <br />
-Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe hoger het pad gaat hoe goedkoper de kosten worden. Door dit experiment hebben wij nu alle chips kunnen oplossen zonder intersections. Deze uitkomsten zijn te zien in onderstaande tabel, hierin zijn ook de optimale kosten per netlist en chip weergeven. Dit zijn de kosten wanneer alle paden via de kortste weg worden gelegd zonder rekening te houden met intersections, gates en het dubbel gebruiken van paden. 
+Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe hoger het pad gaat hoe goedkoper de kosten worden. Door dit experiment hebben wij nu alle chips (op netlist 9 na) kunnen oplossen zonder intersections. Deze uitkomsten zijn te zien in onderstaande tabel, hierin zijn ook de optimale kosten per netlist en chip weergeven. Dit zijn de kosten wanneer alle paden via de kortste weg worden gelegd zonder rekening te houden met intersections, gates en het dubbel gebruiken van paden. 
 <br />
 | Chip  | Netlist   	| Optimale kosten | Kosten uit laatste experiment |
 | ----- | ------------- | --------------- | ----------------------------- |
 | _0    | netlist_1     | 20              | 22                            |
 | _0    | netlist_2     | 35              | 43                            |
 | _0    | netlist_3     | 48              | 60                            |
-| _1    | netlist_4     | 291             |                               |
+| _1    | netlist_4     | 291             | 455                           |
 | _1    | netlist_5     | 341             | 609                           |
 | _1    | netlist_6     | 475             | 843                           |
 | _2    | netlist_7     | 600             |                               |
 | _2    | netlist_8     | 578             | 1056                          |
-| _2    | netlist_9     | 761             |                               |
+| _2    | netlist_9     | 761             | 2879 met 5 int                |
 <br />
 Het laatste experiment is gerunt met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. 
