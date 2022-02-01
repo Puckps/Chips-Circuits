@@ -1,5 +1,5 @@
 import csv
-from functions import get_key, manhattan_distince
+from code.functions.functions import get_key, manhattan_distince
 from classes.path import Path
 from classes.node import Node
 
@@ -132,4 +132,3 @@ class Board():
     def check_gate(self, node):
         if node._gate != None:
             return True
-    

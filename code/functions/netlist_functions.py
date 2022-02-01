@@ -8,7 +8,7 @@ def swap_netlist(netlist):
     return netlist
 
 def multi_swap(netlist):
-    for i in range(10):
+    for i in range(5):
         number_1 = random.randrange(1, len(netlist))
         netlist[0], netlist[number_1] = netlist[number_1], netlist[0]
     return netlist

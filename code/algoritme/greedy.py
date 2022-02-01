@@ -1,5 +1,5 @@
 import classes
-from functions import get_distance
+from code.functions.functions import get_distance
 
 class Greedy:
     """

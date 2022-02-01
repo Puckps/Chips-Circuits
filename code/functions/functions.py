@@ -72,7 +72,7 @@ def plot_graph(nodes, paths, max_x, max_y):
             z.append(net[2])
             ax.plot(x,y,z)
 
-    plt.savefig("representation.png")
+    plt.savefig("output/representation.png")
 
 def plot_2d(nodes, paths, max_x, max_y):
 
@@ -95,7 +95,7 @@ def plot_2d(nodes, paths, max_x, max_y):
             y.append(net[1])
             plt.plot(x, y)
             
-    plt.savefig("2d_representation.png")
+    plt.savefig("output/2d_representation.png")
 
 # gets the key of a dict by value 
 def get_key(val, dict):
@@ -107,4 +107,4 @@ def plot_hill_graph(hill_list):
     # plots cost graph for hill climber
     plt.clf()
     plt.plot(hill_list)
-    plt.savefig("hill_graph.png")
+    plt.savefig("output/hill_graph.png")

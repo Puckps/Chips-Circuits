@@ -4,3 +4,9 @@ representation.png
 hill_graph.png
 uitkomsten.txt
 __pycache__
+main_a_star.py
+main_greedy.py
+main_hill_climber.py
+main_hill.py
+a_star.py
+output

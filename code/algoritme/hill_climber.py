@@ -3,8 +3,8 @@ from queue import PriorityQueue
 import copy
 
 from classes.board import Board
-from a_star import A_star
-from netlist_functions import multi_swap, random_netlist, swap_netlist
+from code.algoritme.a_star_priority import A_star
+from code.functions.netlist_functions import multi_swap, random_netlist, swap_netlist
 
 class HillClimber:
     """
@@ -160,12 +160,12 @@ class HillClimber:
 
                 # makes 1 swap in the top best netlist
                 list_of = eval(sorted_netlist[i]) 
-                mutation = swap_netlist(list_of)
-                if str(mutation) in dict_of_used_netlist.keys():
-                    mutation = swap_netlist(list_of)
-                # mutation = multi_swap(list_of)
+                # mutation = swap_netlist(list_of)
                 # if str(mutation) in dict_of_used_netlist.keys():
-                #     mutation = multi_swap(list_of)
+                #     mutation = swap_netlist(list_of)
+                mutation = multi_swap(list_of)
+                if str(mutation) in dict_of_used_netlist.keys():
+                    mutation = multi_swap(list_of)
 
                 # create board for current net list
                 board = Board(self.gate_list, mutation)
@@ -185,7 +185,7 @@ class HillClimber:
                 print()
                 dict_of_used_netlist[str(mutation)]=costs[2]
 
-        sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
+            sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
         # print(f"end_dict = {dict_of_used_netlist}")
         print()
         print("BEST CONFIG:")
