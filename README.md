@@ -75,5 +75,18 @@ Wel hebben we ook gemerkt dat er na een hoeveelheid restarts de uitkomsten niet 
 <br />
 Wanneer elk pad zonder onderbrekingen kan worden neergelegd komen de volgende scores uit de chips en netlists: 
 <br />
+| Chip  | Netlist   	| Optimale kosten | Kosten uit laatste experiment |
+| ----- | ------------- | --------------- | ----------------------------- |
+| _0    | netlist_1     | 20              |                               |
+| _0    | netlist_2     | 35              |                               |
+| _0    | netlist_3     | 48              |                               |
+| _1    | netlist_4     | 291             |                               |
+| _1    | netlist_5     | 341             |                               |
+| _1    | netlist_6     | 475             |                               |
+| _2    | netlist_7     | 600             |                               |
+| _2    | netlist_8     | 578             |                               |
+| _2    | netlist_9     | 761             |                               |
+
+
 
 ![Optimale kosten per netlist](doc/optimale_kosten.PNG)
