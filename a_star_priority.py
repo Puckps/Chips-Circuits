@@ -5,25 +5,22 @@ from queue import Empty, PriorityQueue
 
 class Data: 
 
-    def __init__(self,x,y,z,score1,score2,node, id):
-        self.x=x
-        self.y=y
-        self.z=z
+    def __init__(self,score1,score2,node, id):
         self.f_cost=score1
         self.h_cost=score2
         self.node=node
         self.id = id
 
     def __repr__(self): # print function
-        return f"{self.x},{self.y},{self.z} f-cost:{self.f_cost} h-cost:{self.h_cost} node:{self.node}"
+        return f"f-cost:{self.f_cost} h-cost:{self.h_cost} node:{self.node}"
 
     def __lt__(self,other): # for PriorityQueue, compare less-then self with other
         if self.f_cost==other.f_cost:    
             return self.h_cost<other.h_cost
         return self.f_cost<other.f_cost   
 
-    def hash_string(self): # for set
-        return f"{self.x} {self.y} {self.z}" # this is the string to store/look-up the data with
+    # def hash_string(self): # for set
+    #     return f"{self.x} {self.y} {self.z}" # this is the string to store/look-up the data with
 
 class A_star:
     """
@@ -41,7 +38,7 @@ class A_star:
         self.calculate_f_cost(self.begin_node)
         # put data object into the priority-queue
         id = 0
-        open_nodes.put(Data(self.begin_node._x,self.begin_node._y,self.begin_node._z, self.begin_node._f_cost, self.begin_node._h_cost, self.begin_node, id))
+        open_nodes.put(Data(self.begin_node._f_cost, self.begin_node._h_cost, self.begin_node, id))
 
         while open_nodes:
 
@@ -65,7 +62,7 @@ class A_star:
                     continue
                 
                 # check whether new path to neighbour is shorter or if neighbour is not yet in the open-list
-                NewMovementCostToNeighbour = current_node._g_cost + manhattan_distince(current_node, neighbour)
+                NewMovementCostToNeighbour = current_node._g_cost + 1 + self.check_z_value(neighbour)                      #manhattan_distince(current_node, neighbour)
                 if neighbour._occupied == True:
                     NewMovementCostToNeighbour += 300
                 if (neighbour._g_cost != None and NewMovementCostToNeighbour < neighbour._g_cost) or self.check_open_nodes(neighbour, open_nodes) == False: #neighbour not in open_nodes:
@@ -77,9 +74,16 @@ class A_star:
                     # if neighbour not in open-list, add it
                     if self.check_open_nodes(neighbour, open_nodes) == False: #neighbour not in open_nodes:
                         id += 1
-                        open_nodes.put(Data(neighbour._x, neighbour._y, neighbour._z, neighbour._f_cost, neighbour._h_cost, neighbour, id))
+                        open_nodes.put(Data(neighbour._f_cost, neighbour._h_cost, neighbour, id))
                         #open_nodes.append(neighbour)
 
+    def check_z_value(self, node):
+        height = node._coordinate[2]
+        #height_cost = {0: 8, 1: 7, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2, 7: 1, 8: 0}
+        height_cost = {0: 8, 1: 7, 2: 6, 3: 5, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
+
+        cost = height_cost[height]
+        return cost
 
     def check_open_nodes(self, neighbour, open_nodes):
         for items in open_nodes.queue:
