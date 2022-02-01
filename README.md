@@ -113,9 +113,9 @@ Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
 Voor experiment 1 hebben wij gekeken naar het effect van het aantal swaps op de hill-climber uitkomsten. Hiervoor hebben wij de hillclimber gedraaid met slechts 1 verwisseling van de netlist, met 5 verwisselingen van de netlist en met 10 verwisselingen in de netlist. Elk van de drie condities is tien keer gedraaid op chip 1 met netlist 5.
 |swaps  | gemiddelde score | 
 | ----- | -------------    |
-| _1    | 11.787           |
-| _5    | 10.599           |
-| _10   | 11.343           | 
+| 1     | 11.787           |
+| 5     | 10.599           |
+| 10    | 11.343           | 
 
 Uit de resultaten komt naar voren dat een hillclimber waarbij telkens 5 items uit de netlist worden verwisseld het beste presteert. 
 
