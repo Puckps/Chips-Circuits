@@ -78,7 +78,7 @@ Wanneer dit gerunt wordt ontstaat er een output file en de daarbij horende repre
 Bij de Baseline waren de uitkomsten nog niet valide door het dubbel gebruiken van paden en door het gebruiken van gates in de paden. De uitkomsten van de A* zijn wel allemaal valide. Ook zijn ze ten opzichte van de Baseline vlink verbeterd.  
 
 ## Algoritme 2
-De eerder gemaakte A* hebben wij voor het tweede algoritme gebruikt om een Hill Climber op te zetten. Hierin wordt de volgoorden van de netlist gesuffeld en vervolgens worden er in de beste netlist steeds kleine aanpassingen gemaakt om nog beter te worden.
+Het tweede algoritme is een hill climber die de volgorde bepaald waarop paden gelegd moeten worden. De paden worden dus <ins>niet</ins> halverwege weggehaald en opnieuw aangelegd, er wordt enkel aan het begin van het leggen een volgorde bepaald waar aan vast wordt gehouden. De paden worden d.m.v. het eerder genoemde A* algoritme gelegd. Vervolgens worden steeds de netlists met de laagste kosten geselecteerd om kleine mutaties op toe te passen, waarna deze stap veelvuldig herhaald wordt.
 
 **Werking**<br />
 Voor het runnen van het Hill Climber algoritme moet je deze activeren in de main.py <br />
@@ -119,6 +119,18 @@ Voor experiment 1 hebben wij gekeken naar het effect van het aantal swaps op de 
 
 Uit de resultaten komt naar voren dat een hillclimber waarbij telkens 5 items uit de netlist worden verwisseld het beste presteert. 
 
+**Experiment 2**
+<br />
+Voor het tweede experiment hebben we de invloed van het aantallen kinderen getest (populatie algoritme). Voor aantallen hebben we 3, 5 en 10 gekozen. Voor elk van deze aantallen is het programma 5 keer gedraaid op chip 1 met netlist 5. (Sinds het verkrijgen van resultaten, is een bug gefixt. De kosten zouden met de huidige versie lager zijn, maar de conclusie zou zelfde zijn.)
+
+| kinderen | gem. kosten | 
+| -------- | ----------- |
+| 3        | 11.595,8    |
+| 5        | 11.343      |
+| 10       | 11.681,4    | 
+
+Geen van deze aantallen gaf beduidend lagere kosten (zie tabel), maar we hebben 5 kinderen alsnog als standaard gekozen, omdat dit in de laagste gemiddelde kosten resulteerde.
+
 **Experiment 3**
 <br />
 Wij hebben voor chip 1 en 2 gekeken wat het veranderen van het aantal restarts en het aantal herhalingen doet op de uitkomst. Hieruit blijkt dat hoe meer restarts je doet hoe meer kans op een betere oplossing. Dit is ook goed te verklaren aangezien de restart random volgoordens van netlists zijn. Dus hoe meer verschillende volgoordens hoe meer kans op een volgoorde die bij een goede score past.
@@ -133,10 +145,10 @@ Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe
 | _0    | netlist_1     | 20              | 22                            |
 | _0    | netlist_2     | 35              | 43                            |
 | _0    | netlist_3     | 48              | 60                            |
-| _1    | netlist_4     | 291             | 455                           |
+| _1    | netlist_4     | 291             | 443                           |
 | _1    | netlist_5     | 341             | 609                           |
 | _1    | netlist_6     | 475             | 843                           |
-| _2    | netlist_7     | 600             |                               |
+| _2    | netlist_7     | 600             | 1010                          |
 | _2    | netlist_8     | 578             | 1056                          |
 | _2    | netlist_9     | 761             | 2879 met 5 int                |
 <br />
