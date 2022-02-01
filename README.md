@@ -19,8 +19,8 @@ Aangezien de chip een grote heeft van 15 x 16 x 8 heeft 1920 nodes, op elke node
 ## BaseLine
 Voor de BaseLine hebben wij een Greedy geschreven aangezien het random leggen van paden niet op een antwoord zou uitkomen. In ons Greedy algoritme hebben bekijken we welke volgende stap van het pad het dichts bij het eindpunt ligt. 
 
-**Werking**
-Voor het runnen van het Greedy algoritme moet je deze activeren in de main.py
+**Werking**<br />
+Voor het runnen van het Greedy algoritme moet je deze activeren in de main.py<br />
 ```python3 main.py {de gewenste chip} {de gewenste netlist}```
 <br />
 Wanneer dit gerunt wordt ontstaat er een output file en de daarbij horende representatie. 
@@ -33,8 +33,8 @@ De scores die uit de baseline komen zijn nog niet valide. Dit komt doordat de in
 ## Algoritme 1
 Aangezien onze Baseline nog niet voor alle chip valide uitkomsten genereerde zijn wij overgestapt naar een A* algoritme, 
 
-**Werking**
-Voor het runnen van het A* algoritme moet je deze activeren in de main.py
+**Werking**<br />
+Voor het runnen van het A* algoritme moet je deze activeren in de main.py<br />
 ```python3 main.py {de gewenste chip} {de gewenste netlist}```
 <br />
 Wanneer dit gerunt wordt ontstaat er een output file en de daarbij horende representatie. Dit algoritme zorgt dat de uitkomt altijd het zelfde is.
@@ -47,8 +47,8 @@ Bij de Baseline waren de uitkomsten nog niet valide door het dubbel gebruiken va
 ## Algoritme 2
 De eerder gemaakte A* hebben wij voor het tweede algoritme gebruikt om een Hill Climber op te zetten. Hierin wordt de volgoorden van de netlist gesuffeld en vervolgens worden er in de beste netlist steeds kleine aanpassingen gemaakt om nog beter te worden.
 
-**Werking**
-Voor het runnen van het Hill Climber algoritme moet je deze activeren in de main.py
+**Werking**<br />
+Voor het runnen van het Hill Climber algoritme moet je deze activeren in de main.py <br />
 ```python3 main.py {de gewenste chip} {de gewenste netlist} {het aantal restarts} {het aantal keer verbeteren}```
 <br />
 Als uitkomst krijg je dan de beste gevonde uitkomt met de daarbij horende output file en representatie. Deze uitkomst is niet altijd dezelfde uitkomst, dit komt doordat de volgoorde van de netlist random gekozen worden. 
@@ -66,5 +66,6 @@ Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
 4. Als laatste hebben wij toegevoegd dat hoe hoger het pad gaat hoe goedkoper het leggen van een pad is. 
 
 **Experiment 3**
+<br />
 Wij hebben voor chip 1 en 2 gekeken wat het veranderen van het aantal restarts en het aantal herhalingen doet op de uitkomst. Hieruit blijkt dat hoe meer restarts je doet hoe meer kans op een betere oplossing. Dit is ook goed te verklaren aangezien de restart random volgoordens van netlists zijn. Dus hoe meer verschillende volgoordens hoe meer kans op een volgoorde die bij een goede score past.
 Wel hebben we ook gemerkt dat er na een hoeveelheid restarts de uitkomsten niet meer groot veranderen. 
