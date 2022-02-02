@@ -1,4 +1,3 @@
-import classes
 from code.functions.functions import manhattan_distance
 
 
@@ -38,7 +37,7 @@ class Greedy:
             if best_node == current_node:
                 for neighbour in current_node._neighbours:
                     dis = manhattan_distance(neighbour, end_node)
-                    if neighbour.has_gate() == False:
+                    if not neighbour.has_gate():
                         if dis < min:
                             min = dis
                             best_node = neighbour
