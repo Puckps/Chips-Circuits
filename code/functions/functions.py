@@ -2,6 +2,7 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def get_distance(current_pos, direction):
     ''' Get euclidian distance between any two points. '''
     x1, y1, z1 = current_pos
@@ -10,7 +11,8 @@ def get_distance(current_pos, direction):
     dy = y1 - y2
     dz = z1 - z2
     return math.sqrt(dx ** 2 + dy ** 2 + dz ** 2)
-    
+
+
 def manhattan_distance(begin_node, end_node):
     ''' Get manhattan distance between any two points. '''
     x = begin_node.get_coords()[0] - end_node.get_coords()[0]
@@ -20,9 +22,10 @@ def manhattan_distance(begin_node, end_node):
     manhattan_distance = abs(x) + abs(y) + abs(z)
     return manhattan_distance
 
+
 def plot_graph(nodes, paths, max_x, max_y):
     ''' Plot figure of the gates in 3d-grid. '''
-    fig = plt.figure(figsize=(max_x,max_y))
+    fig = plt.figure(figsize=(max_x, max_y))
     ax = fig.add_subplot(111, projection="3d")
     ax.set_ylabel("y")
     ax.set_xlabel("x")
@@ -30,10 +33,10 @@ def plot_graph(nodes, paths, max_x, max_y):
     ax.set_ylim([0, max_y])
     ax.set_zlim([0, 8])
     for node in nodes:
-        if node.get_gate() != False:
+        if node.get_gate() is not False:
             # plot the gates
             ax.scatter(node.get_coords()[0], node.get_coords()[1], 0)
-            
+
     # plot all the nets from the path-class
     for path in paths:
         x, y, z = [], [], []
@@ -41,9 +44,10 @@ def plot_graph(nodes, paths, max_x, max_y):
             x.append(net[0])
             y.append(net[1])
             z.append(net[2])
-            ax.plot(x,y,z)
+            ax.plot(x, y, z)
 
     plt.savefig("output/representation.png")
+
 
 def plot_2d(nodes, paths, max_x, max_y):
     ''' plot 2D layer of 3D grid. '''
@@ -56,9 +60,10 @@ def plot_2d(nodes, paths, max_x, max_y):
     plt.ylabel("Y")
 
     for node in nodes:
-        if node.get_gate() != None:
+        if node.get_gate() is not False:
             plt.scatter(node.get_coords()[0], node.get_coords()[1])
-            plt.annotate(node.get_gate().id, (node.get_coords()[0], node.get_coords()[1]))
+            plt.annotate(node.get_gate().id,
+                         (node.get_coords()[0], node.get_coords()[1]))
 
     for path in paths:
         x, y = [], []
@@ -66,14 +71,16 @@ def plot_2d(nodes, paths, max_x, max_y):
             x.append(net[0])
             y.append(net[1])
             plt.plot(x, y)
-            
+
     plt.savefig("output/2d_representation.png")
+
 
 def get_key(val, dict):
     ''' Get key of dict by value. '''
     for key, value in dict.items():
-         if val == value:
-             return key            
+        if val == value:
+            return key
+
 
 def plot_hill_graph(costs):
     ''' Plot cost graph for hill climber. '''
@@ -82,7 +89,7 @@ def plot_hill_graph(costs):
     if isinstance(costs, list):
 
         plt.clf()
-        plt.plot(costs, label = "lowest cost")
+        plt.plot(costs, label="lowest cost")
 
         plt.xlabel("loops")
         plt.ylabel("cost")
@@ -95,8 +102,8 @@ def plot_hill_graph(costs):
         lowest_costs = list(np.repeat(costs[1], 5))
 
         plt.clf()
-        plt.plot(mutation_costs, label = "mutation cost")
-        plt.plot(lowest_costs, label = "lowest cost")
+        plt.plot(mutation_costs, label="mutation cost")
+        plt.plot(lowest_costs, label="lowest cost")
 
         plt.xlabel("loops")
         plt.ylabel("cost")
