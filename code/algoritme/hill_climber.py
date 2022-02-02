@@ -47,12 +47,11 @@ class HillClimber:
                 print(f"{i}.{self.repeats}", end="")
                 print(f"\tcost = {costs[0]}")
                 print(f"\tintersections = {costs[1]}")
-                print(f"\tgate intersections = {costs[2]}")
-                print(f"\ttotal = {costs[3]}")
+                print(f"\ttotal = {costs[2]}")
                 print()
 
                 # save netlist if new total cost is lower, always save first run
-                if self.compare_costs(costs[3]) == True:
+                if self.compare_costs(costs[2]) == True:
                     saved_net_list = copy.deepcopy(self.net_list)
 
                     print('SAVING!')
@@ -83,15 +82,14 @@ class HillClimber:
                     print("BEST CONFIG:")
                     print(f"cost = {costs[0]}")
                     print(f"intersections = {costs[1]}")
-                    print(f"gate intersections = {costs[2]}")
-                    print(f"total = {costs[3]}")
+                    print(f"total = {costs[2]}")
                     print()
 
                     hill_list.append(self.lowest_costs)
 
                     break
 
-            best_netlists.put((costs[3], self.net_list))
+            best_netlists.put((costs[2], self.net_list))
 
         optimal_config = best_netlists.get()
 
@@ -108,8 +106,7 @@ class HillClimber:
         print("BEST OVERALL CONFIG:")
         print(f"cost = {costs[0]}")
         print(f"intersections = {costs[1]}")
-        print(f"gate intersections = {costs[2]}")
-        print(f"total = {costs[3]}")
+        print(f"total = {costs[2]}")
         print()
 
         return (board, costs, hill_list)
@@ -186,6 +183,7 @@ class HillClimber:
                 dict_of_used_netlist[str(mutation)]=costs[2]
 
             sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
+
         # print(f"end_dict = {dict_of_used_netlist}")
         print()
         print("BEST CONFIG:")

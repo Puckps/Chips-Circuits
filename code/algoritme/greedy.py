@@ -14,7 +14,7 @@ class Greedy:
         current_node = self.begin
         self.path._path.append(self.begin.get_coords())
         while current_node != self.end:
-            current_node = self.closest_node(current_node, self.end)
+            current_node = self.node_closest(current_node, self.end)
         return
 
     def closest_node(self, current_node, end_node):

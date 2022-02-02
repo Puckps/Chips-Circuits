@@ -80,7 +80,7 @@ class A_star:
     def check_z_value(self, node):
         height = node._coordinate[2]
         # height_cost = {0: 8, 1: 7, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2, 7: 1, 8: 0}
-        height_cost = {0: 8, 1: 7, 2: 6, 3: 5, 4: 4, 5: 0, 6: 0, 7: 0, 8: 0}
+        height_cost = {0: 8, 1: 7, 2: 6, 3: 3, 4: 2, 5: 1, 6: 0, 7: 0, 8: 0}
 
         cost = height_cost[height]
         return cost

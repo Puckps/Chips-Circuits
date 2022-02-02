@@ -111,7 +111,7 @@ Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
 **Experiment 1**
 <br />
 Voor experiment 1 hebben wij gekeken naar het effect van het aantal swaps op de hill-climber uitkomsten. Hiervoor hebben wij de hillclimber gedraaid met slechts 1 verwisseling van de netlist, met 5 verwisselingen van de netlist en met 10 verwisselingen in de netlist. Elk van de drie condities is tien keer gedraaid op chip 1 met netlist 5.
-| swaps | gem. kosten | 
+| Swaps | Gem. kosten | 
 | ----- | ----------- |
 | 1     | 11.787      |
 | 5     | 10.599      |
@@ -123,7 +123,7 @@ Uit de resultaten komt naar voren dat een hillclimber waarbij telkens 5 items ui
 <br />
 Voor het tweede experiment hebben we de invloed van het aantallen kinderen getest (populatie algoritme). Voor aantallen hebben we 3, 5 en 10 gekozen. Voor elk van deze aantallen is het programma 5 keer gedraaid op chip 1 met netlist 5. (Sinds het verkrijgen van resultaten, is een bug gefixt. De kosten zouden met de huidige versie lager zijn, maar de conclusie zou zelfde zijn.)
 
-| kinderen | gem. kosten | 
+| Kinderen | Gem. kosten | 
 | -------- | ----------- |
 | 3        | 11.595,8    |
 | 5        | 11.343      |
