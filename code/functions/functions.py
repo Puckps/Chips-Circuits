@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def get_distance(current_pos, direction):
-    ''' Get euclidian distance between any two points '''
+    ''' Get euclidian distance between any two points. '''
     x1, y1, z1 = current_pos
     x2, y2, z2 = direction
     dx = x1 - x2
@@ -11,8 +11,8 @@ def get_distance(current_pos, direction):
     dz = z1 - z2
     return math.sqrt(dx ** 2 + dy ** 2 + dz ** 2)
     
-def manhattan_distince(begin_node, end_node):
-    ''' Get manhattan distance between any two points '''
+def manhattan_distance(begin_node, end_node):
+    ''' Get manhattan distance between any two points. '''
     x = begin_node.get_coords()[0] - end_node.get_coords()[0]
     y = begin_node.get_coords()[1] - end_node.get_coords()[1]
     z = begin_node.get_coords()[2] - end_node.get_coords()[2]
@@ -20,24 +20,8 @@ def manhattan_distince(begin_node, end_node):
     manhattan_distance = abs(x) + abs(y) + abs(z)
     return manhattan_distance
 
-def fastest_path(begin_node, end_node):
-    ''' Calculate fastest path to end-node without regard for other paths and gates '''
-    current_node = begin_node
-    new_node = current_node
-    net = [current_node.coordinate]
-    while current_node != end_node:
-        min_distance = 100
-        for neighbour in current_node.neighbours:
-            distance = get_distance(neighbour.coordinate, end_node.coordinate)
-            if distance < min_distance:
-                min_distance = distance
-                new_node = neighbour
-        current_node = new_node
-        net.append(current_node.coordinate)
-    return net
-
 def plot_graph(nodes, paths, max_x, max_y):
-    ''' Plot figure of the gates in 3d-grid '''
+    ''' Plot figure of the gates in 3d-grid. '''
     fig = plt.figure(figsize=(max_x,max_y))
     ax = fig.add_subplot(111, projection="3d")
     ax.set_ylabel("y")
@@ -62,7 +46,7 @@ def plot_graph(nodes, paths, max_x, max_y):
     plt.savefig("output/representation.png")
 
 def plot_2d(nodes, paths, max_x, max_y):
-    ''' plot 2D layer of 3D grid '''
+    ''' plot 2D layer of 3D grid. '''
 
     plt.figure(figsize=(max_x, max_y))
 
@@ -86,13 +70,13 @@ def plot_2d(nodes, paths, max_x, max_y):
     plt.savefig("output/2d_representation.png")
 
 def get_key(val, dict):
-    ''' Get key of dict by value '''
+    ''' Get key of dict by value. '''
     for key, value in dict.items():
          if val == value:
              return key            
 
 def plot_hill_graph(hill_list):
-    ''' Plot cost graph for hill climber '''
+    ''' Plot cost graph for hill climber. '''
     plt.clf()
     plt.plot(hill_list)
     plt.savefig("output/hill_graph.png")
