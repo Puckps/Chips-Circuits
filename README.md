@@ -39,7 +39,7 @@ Wanneer dit gerund wordt ontstaat er een output file en de daarbij horende repre
 | _2    | netlist_8     | 117.804  | 386 met gates        |
 | _2    | netlist_9     | 167.633  | 551 met gates        |
 <br />
-De scores die uit de baseline komen zijn nog niet valide. Dit komt doordat de intersections niet op een geldige manier worden gebruikt. Het kan zo zijn dat ze pad stukken dubbelbezetten. Ook is er te zien dat bij chip_2 er nog gates worden gebruikt om paden te kunnen leggen. Om te zorgen dat dit zo min mogelijk gebeurd hebben we hier wel een kosten van 500 aan gegeven. De uitkomsten zijn via Mathplotlib ook gevisualiseerd. Deze visualisaties zijn [hier](greedy_uitkomsten.jpg) terug te vinden.
+De scores die uit de baseline komen zijn nog niet valide. Dit komt doordat de intersections niet op een geldige manier worden gebruikt. Het kan zo zijn dat ze pad stukken dubbelbezetten. Ook is er te zien dat bij chip_2 er nog gates worden gebruikt om paden te kunnen leggen. Om te zorgen dat dit zo min mogelijk gebeurd hebben we hier wel een kosten van 500 aan gegeven. De uitkomsten zijn via Mathplotlib ook gevisualiseerd. Deze visualisaties zijn [hier](https://github.com/Puckps/Chips-Circuits/blob/main/doc/greedy_uitkomsten.jpg) terug te vinden.
 
 ## Algoritme 1
 Het eerste algoritme dat wij hebben geimplementeerd is het A* algoritme. Dit algoritme vindt altijd een pad naar het eindpunt wanneer er een pad bestaat.
@@ -75,7 +75,7 @@ Wanneer dit gerund wordt ontstaat er een output file en de daarbij horende repre
 | _2    | netlist_9     | 37.815   | 122                  |
 
 <br />
-Bij de Baseline waren de uitkomsten nog niet valide door het dubbel gebruiken van paden en door het gebruiken van gates in de paden. De uitkomsten van de A* zijn wel allemaal valide. Ook zijn ze ten opzichte van de Baseline flink verbeterd. De visualisaties zijn [hier](doc/A_uitkomsten.jpg) terug te vinden.
+Bij de Baseline waren de uitkomsten nog niet valide door het dubbel gebruiken van paden en door het gebruiken van gates in de paden. De uitkomsten van de A* zijn wel allemaal valide. Ook zijn ze ten opzichte van de Baseline flink verbeterd. De visualisaties zijn [hier](https://github.com/Puckps/Chips-Circuits/blob/main/doc/A_uitkomsten.jpg) terug te vinden.
 
 ## Algoritme 2
 Het tweede algoritme is een hill climber die de volgorde bepaald waarop paden gelegd moeten worden. De paden worden dus <ins>niet</ins> halverwege weggehaald en opnieuw aangelegd, er wordt enkel aan het begin van het leggen een volgorde bepaald waar aan vast wordt gehouden. De paden worden d.m.v. het eerder genoemde A* algoritme gelegd. Vervolgens worden steeds de netlists met de laagste kosten geselecteerd om kleine mutaties (paden verwisselen) op toe te passen, waarna deze stap veelvuldig herhaald wordt.
@@ -99,7 +99,7 @@ Als uitkomst krijg je dan de beste gevonde uitkomt met de daarbij horende output
 | _2    | netlist_8     | 10.748   | 33                   |
 | _2    | netlist_9     | 20.449   | 64                   |
 <br />
-De Hill Climber gebruikt het A* algoritme wat er voor zorgt dat alle oplossingen valide zijn. Door het toepassen van een Hill Climber op de volgorde van de netlist kunnen we betere scores halen. De scores die zijn weer gegeven bij een begin populatie van 20 en het 20 keer verbeteren van de beste 5. De visualisaties zijn [hier](doc/hill_uitkomsten.jpg) terug te vinden.
+De Hill Climber gebruikt het A* algoritme wat er voor zorgt dat alle oplossingen valide zijn. Door het toepassen van een Hill Climber op de volgorde van de netlist kunnen we betere scores halen. De scores die zijn weer gegeven bij een begin populatie van 20 en het 20 keer verbeteren van de beste 5. De visualisaties zijn [hier](https://github.com/Puckps/Chips-Circuits/blob/main/doc/hill_uitkomsten.jpg) terug te vinden.
 
 ## Experiment
 Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
@@ -152,4 +152,4 @@ Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe
 | _2    | netlist_8     | 578             | 1070                          |
 | _2    | netlist_9     | 761             | 2029 met 2 int                |
 <br />
-Het laatste experiment is gerund met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. De visualisaties zijn [hier](doc/experiment_uitkomsten.jpg) terug te vinden.
+Het laatste experiment is gerund met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. De visualisaties zijn [hier](https://github.com/Puckps/Chips-Circuits/blob/main/doc/experiment_uitkomsten.jpg) terug te vinden.
