@@ -55,7 +55,7 @@ class A_star:
                     continue
                 
                 # check whether new path to neighbour is shorter or if neighbour is not yet in the open-list
-                movement_cost = current_node._g_cost + 1 + self.get_level_costs(neighbour)
+                movement_cost = current_node._g_cost + 1 # + self.get_level_costs(neighbour)
                 if neighbour._occupied:
                     # intersection-cost equals 300
                     movement_cost += 300

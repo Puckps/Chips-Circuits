@@ -55,7 +55,7 @@ from code.functions.netlist_functions import *
 
 
 # ------------------------------------ A* ------------------------------------
-# from a_star_priority import A_star
+# from code.algoritme.a_star_priority import A_star
 # from classes.board import Board
 
 # if len(argv) != 3:
@@ -109,7 +109,7 @@ restarts = int(argv[3])
 max_reverts = int(argv[4])
 
 HC = HillClimber(net_list, gate_list)
-results = HC.run(restarts, max_reverts)
+results = HC.run_new(restarts, max_reverts)
 
 
 board = results[0]
