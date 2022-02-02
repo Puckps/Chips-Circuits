@@ -152,4 +152,5 @@ Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe
 | _2    | netlist_8     | 578             | 1070                          |
 | _2    | netlist_9     | 761             | 2029 met 2 int                |
 <br />
-Het laatste experiment is gerund met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. De visualisaties zijn [hier](https://github.com/Puckps/Chips-Circuits/blob/main/doc/experiment_uitkomsten.jpg) terug te vinden.
+Het laatste experiment is gerund met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. De visualisaties zijn [MIT](https://choosealicense.com/licenses/mit/)
+[hier](https://github.com/Puckps/Chips-Circuits/blob/main/doc/experiment_uitkomsten.jpg) terug te vinden.
