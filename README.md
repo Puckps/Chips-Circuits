@@ -39,7 +39,7 @@ Wanneer dit gerund wordt ontstaat er een output file en de daarbij horende repre
 | _2    | netlist_8     | 79.670   | 204 met 35 gates     |
 | _2    | netlist_9     | 128.337  | 330 met 55 gates     |
 <br />
-De scores die uit de baseline komen zijn nog niet valide. Dit komt doordat de intersections niet op een geldige manier worden gebruikt. Het kan zo zijn dat ze pad stukken dubbelbezetten. Ook is er te zien dat bij chip_2 er nog gates worden gebruikt om paden te kunnen leggen. Om te zorgen dat dit zo min mogelijk gebeurd hebben we hier wel een kosten van 500 aan gegeven. De uitkomsten zijn via Mathplotlib ook gevisualiseerd. Deze visualisaties zijn [hier](doc/greedy_uitkomsten.pdf) terug te vinden.
+De scores die uit de baseline komen zijn nog niet valide. Dit komt doordat de intersections niet op een geldige manier worden gebruikt. Het kan zo zijn dat ze pad stukken dubbelbezetten. Ook is er te zien dat bij chip_2 er nog gates worden gebruikt om paden te kunnen leggen. Om te zorgen dat dit zo min mogelijk gebeurd hebben we hier wel een kosten van 500 aan gegeven. De uitkomsten zijn via Mathplotlib ook gevisualiseerd. Deze visualisaties zijn [hier](doc) terug te vinden.
 
 ## Algoritme 1
 Het eerste algoritme dat wij hebben geimplementeerd is het A* algoritme. Dit algoritme vindt altijd een pad naar het eindpunt wanneer er een pad bestaat.
@@ -99,7 +99,7 @@ Als uitkomst krijg je dan de beste gevonde uitkomt met de daarbij horende output
 | _2    | netlist_8     | 14.680   | 46                   |
 | _2    | netlist_9     | 26.657   | 85                   |
 <br />
-De Hill Climber gebruikt het A* algoritme wat er voor zorgt dat alle oplossingen valide zijn. Door het toepassen van een Hill Climber op de volgorde van de netlist kunnen we betere scores halen. De scores die zijn weer gegeven bij een begin populatie van 20 en het 20 keer verbeteren van de beste 5. De visualisaties zijn [hier](doc/hill_uitkomsten.pdf) terug te vinden.
+De Hill Climber gebruikt het A* algoritme wat er voor zorgt dat alle oplossingen valide zijn. Door het toepassen van een Hill Climber op de volgorde van de netlist kunnen we betere scores halen. De scores die zijn weer gegeven bij een begin populatie van 20 en het 20 keer verbeteren van de beste 5. 
 
 ## Experiment
 Wij hebben drie experimenten uitgekozen om te onderzoeken. Deze zijn:
@@ -152,4 +152,4 @@ Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe
 | _2    | netlist_8     | 578             | 1056                          |
 | _2    | netlist_9     | 761             | 2879 met 5 int                |
 <br />
-Het laatste experiment is gerund met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. 
+Het laatste experiment is gerund met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. De visualisaties zijn [hier](doc/hill_uitkomsten.pdf) terug te vinden.
