@@ -3,18 +3,19 @@ import classes.board as brd
 from code.functions.functions import get_distance, manhattan_distance
 from queue import Empty, PriorityQueue
 
-class Heap: 
+
+class Heap:
     ''' Object capable of being retrieved from heap. '''
     def __init__(self, f_cost, h_cost, node):
         self.f_cost = f_cost
         self.h_cost = h_cost
         self.node = node
 
-    def __lt__(self,other):
+    def __lt__(self, other):
         ''' Sort prioritylist by f-cost and h-cost. '''
-        if self.f_cost == other.f_cost:    
+        if self.f_cost == other.f_cost:
             return self.h_cost < other.h_cost
-        return self.f_cost < other.f_cost   
+        return self.f_cost < other.f_cost
 
 
 class A_star:
@@ -23,7 +24,7 @@ class A_star:
         self.path = path
         self.begin_node = self.path._net_gates[0]
         self.end_node = self.path._net_gates[1]
-    
+
     def run_a_star(self):
         ''' Run A* pathfinding algorithm. '''
         open_nodes = PriorityQueue()
@@ -31,7 +32,8 @@ class A_star:
         self.calculate_f_cost(self.begin_node)
 
         # put data object into the priority-queue
-        open_nodes.put(Heap(self.begin_node._f_cost, self.begin_node._h_cost, self.begin_node))
+        open_nodes.put(Heap(self.begin_node._f_cost, self.begin_node._h_cost,
+                            self.begin_node))
 
         while open_nodes:
 
@@ -48,13 +50,16 @@ class A_star:
                 self.set_as_occupied(path_nodes)
                 self.reset_costs(open_nodes, closed_nodes)
                 return
-            
+
             # check if neighbours are traversable
             for neighbour in current_node._neighbours:
-                if neighbour in closed_nodes or (neighbour.has_gate() and neighbour != self.end_node and neighbour != self.begin_node):
+                if neighbour in closed_nodes or (neighbour.has_gate()
+                   and neighbour != self.end_node
+                   and neighbour != self.begin_node):
                     continue
-                
-                # check whether new path to neighbour is shorter or if neighbour is not yet in the open-list
+
+                # check whether new path to neighbour is shorter
+                # or if neighbour is not yet in the open-list
                 movement_cost = current_node._g_cost + 1 # + self.get_level_costs(neighbour)
                 if neighbour._occupied:
                     # intersection-cost equals 300
@@ -64,11 +69,12 @@ class A_star:
                     neighbour._h_cost = manhattan_distance(neighbour, self.end_node)
                     neighbour._f_cost = neighbour._g_cost + neighbour._h_cost
                     neighbour._parent = current_node
-                    
+
                     # if neighbour not in open-list, add it
                     if not self.check_open_nodes(neighbour, open_nodes):
 
-                        open_nodes.put(Heap(neighbour._f_cost, neighbour._h_cost, neighbour))
+                        open_nodes.put(Heap(neighbour._f_cost,
+                                            neighbour._h_cost, neighbour))
 
     def get_level_costs(self, node):
         ''' Add costs for lower grid-levels. '''
@@ -95,21 +101,24 @@ class A_star:
         while current_node != self.begin_node:
             path.append(current_node)
             current_node = current_node._parent
-        
+
         # reverse the path to get begin-end
         path.append(self.begin_node)
         path.reverse()
 
         # return list of nodes that make up the final path
         return path
-    
+
     def set_as_occupied(self, path_nodes):
-        """ Set all the nodes in list as occupied for next paths and put coordinates of nodes in the path-net. """
+        """
+        Set all the nodes in list as occupied for next paths
+        and put coordinates of nodes in the path-net.
+        """
         for node in path_nodes:
             self.path._path.append(node._coordinate)
             if node != self.begin_node and node != self.end_node:
                 node._occupied = True
-    
+
     def reset_costs(self, open_nodes, closed_nodes):
         ''' Set all A* costs back to normal value for next paths. '''
         for node in open_nodes.queue:
