@@ -1,10 +1,11 @@
 import csv
-from code.functions.functions import get_key, manhattan_distince
+from code.functions.functions import get_key
 from classes.path import Path
 from classes.node import Node
 
 
 class Board():
+    ''' Contains whole chip, including paths, gates and nodes. '''
     def __init__(self, gate_file, net_file):
         self._gates = gate_file
         self._dimensions = self.get_dimensions(self._gates)
@@ -12,23 +13,10 @@ class Board():
         self._nodes = self.get_grid(self._dimensions)
 
         for node in self._nodes:
-            node.gen_neighbours(self._nodes)
+            node.create_neighbours(self._nodes)
 
-        self._paths = self.gen_path()
+        self._paths = self.create_path()
 
-
-    # def import_gates(self, gates_file):
-    #     ''' Get gate coordinates from print file. '''
-
-    #     with open(gates_file) as infile:
-    #         reader = csv.reader(infile)
-    #         next(reader)
-
-    #         coords_dict = {}
-    #         for line in reader:
-    #             coords_dict[int(line[0])] = (int(line[1]), int(line[2]), 0)
-    #     return coords_dict
-    
     def get_dimensions(self, gate_dict):
         ''' Get highest x and y to infer grid size. '''
         max_x, max_y = 0, 0
@@ -43,19 +31,8 @@ class Board():
         dimensions = max_x + 2, max_y + 2
         return dimensions
 
-    # def import_net(self, net_file):
-    #     with open(net_file) as infile:
-    #         reader = csv.reader(infile)
-    #         next(reader)
-
-    #         net_list = []
-    #         for line in reader:
-    #             net = (int(line[0]),int(line[1]))
-    #             net_list.append(net)
-
-    #     return net_list
-
     def get_grid(self, dimensions):
+        ''' Create all nodes and gates. '''
         node_list = []
         for x in range(dimensions[0]):
             for y in range(dimensions[1]):
@@ -75,30 +52,37 @@ class Board():
         return node_list
 
     def get_gatenodes(self):
+        ''' Put gate-nodes in list. '''
         gate_nodes = []
         for node in self._nodes:
-            if node._gate != None:
+            if node._gate != False:
                 gate_nodes.append(node)
         return gate_nodes
 
-    def gen_path(self):
+    def create_path(self):
+        ''' Add begin-and end-nodes to path-object. '''
         path_list = []
         gate_nodes = self.get_gatenodes()
         for list_item in self._netlist:
             netlist_gates = []
+
             # add first gate
             for node in gate_nodes:
                 if node.get_gate().id == list_item[0]:
                     netlist_gates.append(node)
+
             # add second gate
             for node in gate_nodes:
                 if node.get_gate().id == list_item[1]:
                     netlist_gates.append(node)
+
             # create path-object with two gates
             path_list.append(Path(netlist_gates))
+
         return path_list
     
     def calculate_costs(self):
+        ''' Calculate total costs. '''
         costs = 0
         for path in self._paths:
             costs += len(path._path) - 1
@@ -106,12 +90,11 @@ class Board():
                 costs += 100000
 
         total_cost = costs + 300*self.calc_intersections() 
-        # print(f"cost = {costs}")
-        # print(f"intersections = {self.calc_intersections()}")
-        # print(f"totaal = {total_cost}")
+        
         return costs, self.calc_intersections(), total_cost
 
     def calc_intersections(self):
+        ''' Calculate amount of intersections made. '''
         list_nodes = []
         for path in self._paths:
             for node in path._path[1:-1]:
@@ -121,6 +104,7 @@ class Board():
         return (len(list_nodes) - len(set_nodes))
 
     def calc_used_gate(self):
+        ''' Calculate amount of crossed gates. '''
         used_list = []
         for path in self._paths:
             for node in path._path[1:-1]:
@@ -130,5 +114,6 @@ class Board():
         return(len(used_list))     
 
     def check_gate(self, node):
-        if node._gate != None:
+        '''Check if node contains gate. '''
+        if node._gate != False:
             return True
