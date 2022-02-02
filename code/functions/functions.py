@@ -2,30 +2,17 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-# # get all neighbouring nodes of any node
-# ### in nodes class
-# def get_neighbours(current_node, nodes_list):
-#     neighbours = []
-#     x, y = current_node.coordinate
-#     possible_neighbours = [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
-#     for node in nodes_list:
-#         if node.coordinate in possible_neighbours:
-#             neighbours.append(node)
-#     return neighbours
-
-# get distance to any position
-### zegt iets over twee nodes, hulpfuctie of bij oath
 def get_distance(current_pos, direction):
+    ''' Get euclidian distance between any two points '''
     x1, y1, z1 = current_pos
     x2, y2, z2 = direction
     dx = x1 - x2
     dy = y1 - y2
     dz = z1 - z2
     return math.sqrt(dx ** 2 + dy ** 2 + dz ** 2)
-
-
     
 def manhattan_distince(begin_node, end_node):
+    ''' Get manhattan distance between any two points '''
     x = begin_node.get_coords()[0] - end_node.get_coords()[0]
     y = begin_node.get_coords()[1] - end_node.get_coords()[1]
     z = begin_node.get_coords()[2] - end_node.get_coords()[2]
@@ -33,9 +20,8 @@ def manhattan_distince(begin_node, end_node):
     manhattan_distance = abs(x) + abs(y) + abs(z)
     return manhattan_distance
 
-# calculate fastest path to end-node
-### 
 def fastest_path(begin_node, end_node):
+    ''' Calculate fastest path to end-node without regard for other paths and gates '''
     current_node = begin_node
     new_node = current_node
     net = [current_node.coordinate]
@@ -51,7 +37,7 @@ def fastest_path(begin_node, end_node):
     return net
 
 def plot_graph(nodes, paths, max_x, max_y):
-    # plots a figure of the gates in a 3d grid
+    ''' Plot figure of the gates in 3d-grid '''
     fig = plt.figure(figsize=(max_x,max_y))
     ax = fig.add_subplot(111, projection="3d")
     ax.set_ylabel("y")
@@ -61,8 +47,9 @@ def plot_graph(nodes, paths, max_x, max_y):
     ax.set_zlim([0, 8])
     for node in nodes:
         if node.get_gate() != None:
-            ax.scatter(node.get_coords()[0], node.get_coords()[1], 0) # plots the gates
-            # plt.annotate(node.get_gate().id, (node.get_coords()[0], node.get_coords()[1]))
+            # plot the gates
+            ax.scatter(node.get_coords()[0], node.get_coords()[1], 0)
+            
     # plot all the nets from the path-class
     for path in paths:
         x, y, z = [], [], []
@@ -75,6 +62,7 @@ def plot_graph(nodes, paths, max_x, max_y):
     plt.savefig("output/representation.png")
 
 def plot_2d(nodes, paths, max_x, max_y):
+    ''' plot 2D layer of 3D grid '''
 
     plt.figure(figsize=(max_x, max_y))
 
@@ -97,14 +85,14 @@ def plot_2d(nodes, paths, max_x, max_y):
             
     plt.savefig("output/2d_representation.png")
 
-# gets the key of a dict by value 
 def get_key(val, dict):
+    ''' Get key of dict by value '''
     for key, value in dict.items():
          if val == value:
              return key            
 
 def plot_hill_graph(hill_list):
-    # plots cost graph for hill climber
+    ''' Plot cost graph for hill climber '''
     plt.clf()
     plt.plot(hill_list)
     plt.savefig("output/hill_graph.png")
