@@ -62,7 +62,7 @@ class A_star:
                 if neighbour._occupied:
                     # intersection-cost equals 300
                     movement_cost += 300
-                if (neighbour._g_cost != None and movement_cost < neighbour._g_cost) or not self.check_open_nodes(neighbour, open_nodes):
+                if (neighbour._g_cost is not None and movement_cost < neighbour._g_cost) or not self.check_open_nodes(neighbour, open_nodes):
                     neighbour._g_cost = movement_cost
                     neighbour._h_cost = manhattan_distance(neighbour, self.end_node)
                     neighbour._f_cost = neighbour._g_cost + neighbour._h_cost
