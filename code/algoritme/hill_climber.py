@@ -1,14 +1,15 @@
-import random as rd
 from queue import PriorityQueue
 import copy
-
 from classes.board import Board
 from code.algoritme.a_star_priority import A_star
 from code.functions.netlist_functions import multi_swap, random_netlist
 
+
 class HillClimber:
-    """ Hill climber changes netlist order for a* algorithm and returns lowest cost found.
-    Repeats multiple times. """
+    """
+    Hill climber changes netlist order for a* algorithm
+    and returns lowest cost found. Repeats multiple times.
+    """
 
     def __init__(self, net_list, gate_list):
         self.net_list_original = net_list
@@ -49,19 +50,20 @@ class HillClimber:
                 print(f"\ttotal = {costs[2]}")
                 print()
 
-                # save netlist if new total cost is lower, always save first run
-                if self.compare_costs(costs[2]) == True:
+                # save netlist if new total cost is lower
+                # always save first run
+                if self.compare_costs(costs[2]):
                     saved_net_list = copy.deepcopy(self.net_list)
 
                     print('SAVING!')
                     print()
-                
+
                 # revert to saved netlist if total cost is higher
                 else:
                     self.net_list = copy.deepcopy(saved_net_list)
                     print('REVERTING!')
                     print()
-                
+
                 if not self.end_loop():
                     swaps = 5
                     self.net_list = multi_swap(self.net_list, swaps)
@@ -85,7 +87,7 @@ class HillClimber:
                     print(f"intersections = {costs[1]}")
                     print(f"total = {costs[2]}")
                     print()
-                    
+
                     # store data for graph
                     graph_lowest_costs.append(self.lowest_costs)
 
@@ -116,7 +118,7 @@ class HillClimber:
     def run_new(self, restarts, max_reverts):
         ''' Run population-based Hillclimber algorithm. '''
 
-        dict_of_used_netlist= {}
+        dict_of_used_netlist = {}
         self.restarts = restarts
         self.max_reverts = max_reverts
 
@@ -129,7 +131,7 @@ class HillClimber:
 
             if str(random_start_netlist) in dict_of_used_netlist.keys():
                 random_start_netlist = random_netlist(net_file_list)
-            
+
             self.repeats = 0
             self.revert_counter = 0
 
@@ -150,9 +152,9 @@ class HillClimber:
             dict_of_used_netlist[str(random_start_netlist)] = costs[2]
 
         print()
-        # sorteds the dictonary by total costs 
-        sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
-
+        # sorteds the dictonary by total costs
+        sorted_netlist = sorted(dict_of_used_netlist,
+                                key=dict_of_used_netlist.get)
 
         for i in range(max_reverts):
             for i in range(len(sorted_netlist[:5])):
@@ -181,7 +183,8 @@ class HillClimber:
                 print(i)
                 dict_of_used_netlist[str(mutation)] = costs[2]
 
-            sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get)
+            sorted_netlist = sorted(dict_of_used_netlist,
+                                    key=dict_of_used_netlist.get)
 
             # store data for graph
             graph_lowest_costs.append(dict_of_used_netlist[sorted_netlist[0]])
@@ -200,7 +203,8 @@ class HillClimber:
         print(f"intersections = {best_costs[1]}")
         print(f"total = {best_costs[2]}")
         print()
-        return (best_board, best_costs, sorted_netlist[0], (graph_costs, graph_lowest_costs))
+        return (best_board, best_costs, sorted_netlist[0],
+                (graph_costs, graph_lowest_costs))
 
     def compare_costs(self, costs):
         ''' Check if hillclimber run has reached end. '''
@@ -221,4 +225,4 @@ class HillClimber:
         if self.revert_counter == self.max_reverts:
             return True
 
-        return False
+        return
