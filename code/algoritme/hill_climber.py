@@ -16,7 +16,7 @@ class HillClimber:
 
     def run(self, restarts, max_reverts):
         ''' Run Hillclimber algorithm. '''
-        hill_list = []
+        graph_lowest_costs = []
         best_netlists = PriorityQueue()
 
         self.restarts = restarts
@@ -65,7 +65,9 @@ class HillClimber:
                 if not self.end_loop():
                     swaps = 5
                     self.net_list = multi_swap(self.net_list, swaps)
-                    hill_list.append(self.lowest_costs)
+
+                    # store data for graph
+                    graph_lowest_costs.append(self.lowest_costs)
 
                 # run board and algorithm again for best outcome
                 else:
@@ -83,8 +85,9 @@ class HillClimber:
                     print(f"intersections = {costs[1]}")
                     print(f"total = {costs[2]}")
                     print()
-
-                    hill_list.append(self.lowest_costs)
+                    
+                    # store data for graph
+                    graph_lowest_costs.append(self.lowest_costs)
 
                     break
 
@@ -108,7 +111,7 @@ class HillClimber:
         print(f"total = {costs[2]}")
         print()
 
-        return (board, costs, optimal_config)
+        return (board, costs, optimal_config, graph_lowest_costs)
 
     def run_new(self, restarts, max_reverts):
         ''' Run population-based Hillclimber algorithm. '''
@@ -116,6 +119,9 @@ class HillClimber:
         dict_of_used_netlist= {}
         self.restarts = restarts
         self.max_reverts = max_reverts
+
+        graph_costs = []
+        graph_lowest_costs = []
 
         for i in range(restarts):
             net_file_list = copy.deepcopy(self.net_list_original)
@@ -169,10 +175,16 @@ class HillClimber:
                 # calculate and display costs
                 costs = board.calculate_costs()
 
+                # store data for graph
+                graph_costs.append(costs[2])
+
                 print(i)
                 dict_of_used_netlist[str(mutation)] = costs[2]
 
-            sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
+            sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get)
+
+            # store data for graph
+            graph_lowest_costs.append(dict_of_used_netlist[sorted_netlist[0]])
 
         print()
         print("BEST CONFIG:")
@@ -188,7 +200,7 @@ class HillClimber:
         print(f"intersections = {best_costs[1]}")
         print(f"total = {best_costs[2]}")
         print()
-        return (best_board, best_costs, sorted_netlist[0])
+        return (best_board, best_costs, sorted_netlist[0], (graph_costs, graph_lowest_costs))
 
     def compare_costs(self, costs):
         ''' Check if hillclimber run has reached end. '''
