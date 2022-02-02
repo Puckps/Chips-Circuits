@@ -30,14 +30,14 @@ Wanneer dit gerund wordt ontstaat er een output file en de daarbij horende repre
 | Chip  | Netlist   	| Kosten   | Aantal intersections |
 | ----- | ------------- | -------- | -------------------- |
 | _0    | netlist_1     | 20       | 0                    |
-| _0    | netlist_2     | 4.717    | 15                   |
-| _0    | netlist_3     | 2.160    | 7                    |
-| _1    | netlist_4     | 15.223   | 49                   |
-| _1    | netlist_5     | 50.761   | 165                  |
-| _1    | netlist_6     | 77.801   | 255                  |
-| _2    | netlist_7     | 96.328   | 252 met 38 gates     |
-| _2    | netlist_8     | 79.670   | 204 met 35 gates     |
-| _2    | netlist_9     | 128.337  | 330 met 55 gates     |
+| _0    | netlist_2     | 971      | 3                    |
+| _0    | netlist_3     | 98       | 0                    |
+| _1    | netlist_4     | 29.329   | 95 met gates         |
+| _1    | netlist_5     | 70.199   | 228                  |
+| _1    | netlist_6     | 86.711   | 285 met gates        |
+| _2    | netlist_7     | 100.630  | 331 met gates        |
+| _2    | netlist_8     | 117.804  | 386 met gates        |
+| _2    | netlist_9     | 167.633  | 551 met gates        |
 <br />
 De scores die uit de baseline komen zijn nog niet valide. Dit komt doordat de intersections niet op een geldige manier worden gebruikt. Het kan zo zijn dat ze pad stukken dubbelbezetten. Ook is er te zien dat bij chip_2 er nog gates worden gebruikt om paden te kunnen leggen. Om te zorgen dat dit zo min mogelijk gebeurd hebben we hier wel een kosten van 500 aan gegeven. De uitkomsten zijn via Mathplotlib ook gevisualiseerd. Deze visualisaties zijn [hier](doc/greedy_uitkomsten.jpg) terug te vinden.
 
@@ -67,12 +67,12 @@ Wanneer dit gerund wordt ontstaat er een output file en de daarbij horende repre
 | _0    | netlist_1     | 20       | 0                    |
 | _0    | netlist_2     | 343      | 1                    |
 | _0    | netlist_3     | 360      | 1                    |
-| _1    | netlist_4     | 4.277    | 13                   |
+| _1    | netlist_4     | 4.025    | 12                   |
 | _1    | netlist_5     | 9.793    | 31                   |
-| _1    | netlist_6     | 19.019   | 61                   |
-| _2    | netlist_7     | 15.898   | 50                   |
-| _2    | netlist_8     | 17.980   | 57                   |
-| _2    | netlist_9     | 35.677   | 115                  |
+| _1    | netlist_6     | 16.671   | 53                   |
+| _2    | netlist_7     | 16.570   | 52                   |
+| _2    | netlist_8     | 16.733   | 53                   |
+| _2    | netlist_9     | 37.815   | 122                  |
 
 <br />
 Bij de Baseline waren de uitkomsten nog niet valide door het dubbel gebruiken van paden en door het gebruiken van gates in de paden. De uitkomsten van de A* zijn wel allemaal valide. Ook zijn ze ten opzichte van de Baseline flink verbeterd. De visualisaties zijn [hier](doc/A_uitkomsten.jpg) terug te vinden.
@@ -89,15 +89,15 @@ Als uitkomst krijg je dan de beste gevonde uitkomt met de daarbij horende output
 ### Uitkomsten
 | Chip  | Netlist   	| Kosten   | Aantal intersections |
 | ----- | ------------- | -------- | -------------------- |
-| _0    | netlist_1     | 20       | 0                    |
-| _0    | netlist_2     | 41       | 0                    |
+| _0    | netlist_1     | 22       | 0                    |
+| _0    | netlist_2     | 43       | 0                    |
 | _0    | netlist_3     | 56       | 0                    |
-| _1    | netlist_4     | 1.867    | 5                    |
-| _1    | netlist_5     | 5.571    | 17                   |
-| _1    | netlist_6     | 14.267   | 45                   |
-| _2    | netlist_7     | 8.974    | 27                   |
-| _2    | netlist_8     | 14.680   | 46                   |
-| _2    | netlist_9     | 26.657   | 85                   |
+| _1    | netlist_4     | 365      | 1                    |
+| _1    | netlist_5     | 2.589    | 7                    |
+| _1    | netlist_6     | 7.661    | 23                   |
+| _2    | netlist_7     | 6.910    | 20                   |
+| _2    | netlist_8     | 10.748   | 33                   |
+| _2    | netlist_9     | 20.449   | 64                   |
 <br />
 De Hill Climber gebruikt het A* algoritme wat er voor zorgt dat alle oplossingen valide zijn. Door het toepassen van een Hill Climber op de volgorde van de netlist kunnen we betere scores halen. De scores die zijn weer gegeven bij een begin populatie van 20 en het 20 keer verbeteren van de beste 5. De visualisaties zijn [hier](doc/hill_uitkomsten.jpg) terug te vinden.
 
@@ -143,13 +143,13 @@ Voor experiment 4 zijn we gaan kijken wat het effect op de kosten is wanneer hoe
 | Chip  | Netlist   	| Optimale kosten | Kosten uit laatste experiment |
 | ----- | ------------- | --------------- | ----------------------------- |
 | _0    | netlist_1     | 20              | 22                            |
-| _0    | netlist_2     | 35              | 43                            |
-| _0    | netlist_3     | 48              | 60                            |
-| _1    | netlist_4     | 291             | 443                           |
-| _1    | netlist_5     | 341             | 609                           |
-| _1    | netlist_6     | 475             | 843                           |
-| _2    | netlist_7     | 600             | 1010                          |
-| _2    | netlist_8     | 578             | 1056                          |
-| _2    | netlist_9     | 761             | 2879 met 5 int                |
+| _0    | netlist_2     | 35              | 39                            |
+| _0    | netlist_3     | 48              | 56                            |
+| _1    | netlist_4     | 291             | 489                           |
+| _1    | netlist_5     | 341             | 629                           |
+| _1    | netlist_6     | 475             | 877                           |
+| _2    | netlist_7     | 600             | 1014                          |
+| _2    | netlist_8     | 578             | 1070                          |
+| _2    | netlist_9     | 761             | 2029 met 2 int                |
 <br />
 Het laatste experiment is gerund met een begin populatie van 1000 en het dan 100 keer de top 5 verbeteren waarbij er bij het verbeteren steeds 5 swaps worden gebruikt met de multi_swap. Hiervoor hebben wij gekozen omdat dit uit de eerdere experimenten naar boven kwamen als de beste parameters. De visualisaties zijn [hier](doc/experiment_uitkomsten.jpg) terug te vinden.
