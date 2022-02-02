@@ -1,4 +1,4 @@
-from code.functions.functions import get_distance, manhattan_distance
+from code.functions.functions import manhattan_distance
 
 
 class Path():
