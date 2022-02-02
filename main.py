@@ -8,7 +8,7 @@ from code.algoritme.hill_climber import HillClimber
 from classes.path import Path
 
 
-from code.functions.functions import plot_graph
+from code.functions.functions import plot_graph, plot_hill_graph
 from code.functions.load import import_gates, import_net
 from code.functions.netlist_functions import *
 
@@ -143,3 +143,7 @@ df.to_csv("output/output.csv", index=False)
 
 plot_graph(board._nodes, board._paths, board._dimensions[0], board._dimensions[1])
 
+# ------------------------- Generate hill climber graph --------------------------
+
+# graph_costs = results[3]
+# plot_hill_graph(graph_costs)
