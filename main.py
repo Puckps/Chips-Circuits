@@ -111,6 +111,7 @@ max_reverts = int(argv[4])
 HC = HillClimber(net_list, gate_list)
 results = HC.run(restarts, max_reverts)
 
+
 board = results[0]
 costs = results[1]
 hill_list = results[2]
@@ -126,7 +127,7 @@ for path in board._paths:
     net_list.append(net_output)
     path_list.append(path_str)
 
-best_df = pd.DataFrame({"netlist": [hill_list],"score": [costs[2]], "intersections": [costs[1]], "restarts": [argv[3]], "max_reverts": [argv[4]]})
+best_df = pd.DataFrame({"netlist": [(hill_list)],"score": [costs[2]], "intersections": [costs[1]], "restarts": [argv[3]], "max_reverts": [argv[4]]})
 
 with open(f"output/chip_{argv[1]}/output_netlist_{argv[2]}.csv", 'a') as f:
     best_df.to_csv(f, header=False, index=False)

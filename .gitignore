@@ -10,3 +10,4 @@ main_hill_climber.py
 main_hill.py
 a_star.py
 output
+/__pycache__/

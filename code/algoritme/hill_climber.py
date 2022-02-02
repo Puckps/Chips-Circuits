@@ -4,19 +4,18 @@ import copy
 
 from classes.board import Board
 from code.algoritme.a_star_priority import A_star
-from code.functions.netlist_functions import multi_swap, random_netlist, swap_netlist
+from code.functions.netlist_functions import multi_swap, random_netlist
 
 class HillClimber:
-    """
-    Hill climber changes netlist order for a* algorithm until a lowest cost is reached.
-    Repeats multiple times.
-    """
+    """ Hill climber changes netlist order for a* algorithm and returns lowest cost found.
+    Repeats multiple times. """
 
     def __init__(self, net_list, gate_list):
         self.net_list_original = net_list
         self.gate_list = gate_list
 
     def run(self, restarts, max_reverts):
+        ''' Run Hillclimber algorithm. '''
         hill_list = []
         best_netlists = PriorityQueue()
 
@@ -63,9 +62,9 @@ class HillClimber:
                     print('REVERTING!')
                     print()
                 
-                if self.end_loop() == False:
-                    self.net_list = self.net_swap(self.net_list)
-                    
+                if not self.end_loop():
+                    swaps = 5
+                    self.net_list = multi_swap(self.net_list, swaps)
                     hill_list.append(self.lowest_costs)
 
                 # run board and algorithm again for best outcome
@@ -109,9 +108,10 @@ class HillClimber:
         print(f"total = {costs[2]}")
         print()
 
-        return (board, costs, hill_list)
+        return (board, costs, optimal_config)
 
     def run_new(self, restarts, max_reverts):
+        ''' Run population-based Hillclimber algorithm. '''
 
         dict_of_used_netlist= {}
         self.restarts = restarts
@@ -139,10 +139,6 @@ class HillClimber:
             costs = board.calculate_costs()
 
             print(i)
-            # print(f"\tcost = {costs[0]}")
-            # print(f"\tintersections = {costs[1]}")
-            # print(f"\ttotal = {costs[2]}")
-            print()
 
             # append netlists and total costs to dictonary
             dict_of_used_netlist[str(random_start_netlist)] = costs[2]
@@ -156,13 +152,11 @@ class HillClimber:
             for i in range(len(sorted_netlist[:5])):
 
                 # makes 1 swap in the top best netlist
-                list_of = eval(sorted_netlist[i]) 
-                # mutation = swap_netlist(list_of)
-                # if str(mutation) in dict_of_used_netlist.keys():
-                #     mutation = swap_netlist(list_of)
-                mutation = multi_swap(list_of)
+                list_of = eval(sorted_netlist[i])
+                swaps = 5
+                mutation = multi_swap(list_of, swaps)
                 if str(mutation) in dict_of_used_netlist.keys():
-                    mutation = multi_swap(list_of)
+                    mutation = multi_swap(list_of, swaps)
 
                 # create board for current net list
                 board = Board(self.gate_list, mutation)
@@ -176,15 +170,10 @@ class HillClimber:
                 costs = board.calculate_costs()
 
                 print(i)
-                # print(f"\tcost = {costs[0]}")
-                # print(f"\tintersections = {costs[1]}")
-                # print(f"\ttotal = {costs[2]}")
-                print()
-                dict_of_used_netlist[str(mutation)]=costs[2]
+                dict_of_used_netlist[str(mutation)] = costs[2]
 
             sorted_netlist = sorted(dict_of_used_netlist, key=dict_of_used_netlist.get) 
 
-        # print(f"end_dict = {dict_of_used_netlist}")
         print()
         print("BEST CONFIG:")
         print(f"net_list = {sorted_netlist[0]}")
@@ -202,6 +191,7 @@ class HillClimber:
         return (best_board, best_costs, sorted_netlist[0])
 
     def compare_costs(self, costs):
+        ''' Check if hillclimber run has reached end. '''
         if self.repeats == 0 or costs < self.lowest_costs:
             self.lowest_costs = costs
             self.repeats += 1
@@ -214,13 +204,8 @@ class HillClimber:
 
         return False
 
-    def net_swap(self, net_list):       
-        random_element = rd.randrange(1, len(net_list))
-        net_list[random_element], net_list[0] = net_list[0], net_list[random_element]
-
-        return net_list
-
     def end_loop(self):
+        ''' If maximal amount reverts has been reached, terminate loop. '''
         if self.revert_counter == self.max_reverts:
             return True
 
