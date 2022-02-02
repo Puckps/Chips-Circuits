@@ -1,7 +1,5 @@
-from importlib.resources import open_binary
-import classes.board as brd
-from code.functions.functions import get_distance, manhattan_distance
-from queue import Empty, PriorityQueue
+from code.functions.functions import manhattan_distance
+from queue import PriorityQueue
 
 
 class Heap:
