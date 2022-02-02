@@ -89,6 +89,7 @@ Voor het runnen van het Hill Climber algoritme moet je deze activeren in de main
 ```python3 main.py {de gewenste chip} {de gewenste netlist} {het aantal restarts} {het aantal keer verbeteren}```
 <br />
 Als uitkomst krijg je dan de beste gevonde uitkomt met de daarbij horende output file en representatie. Deze uitkomst is niet altijd dezelfde uitkomst, dit komt doordat de volgorde van de netlist random gekozen worden. 
+Er kan ook een grafiek van de kosten over tijd gegenereert worden. Daarvoor moet eerst de code onderaan main.py ge-uncomment worden (niet compatible met andere algoritmen).
 
 ### Uitkomsten
 | Chip  | Netlist   	| Kosten   | Aantal intersections |
