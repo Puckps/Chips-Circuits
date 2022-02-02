@@ -1,4 +1,3 @@
-import csv
 from code.functions.functions import get_key
 from classes.path import Path
 from classes.node import Node
@@ -38,14 +37,14 @@ class Board():
             for y in range(dimensions[1]):
                 for z in range(7):
                     coordinate = (x, y, z)
-            
+
                     if coordinate in self._gates.values():
                         gate_id = get_key(coordinate, self._gates)
-                    
+
                         new_node = Node(coordinate)
                         new_node.create_gate(gate_id)
                         node_list.append(new_node)
-                        
+
                     elif coordinate not in self._gates:
                         new_node = Node(coordinate)
                         node_list.append(new_node)
@@ -55,7 +54,7 @@ class Board():
         ''' Put gate-nodes in list. '''
         gate_nodes = []
         for node in self._nodes:
-            if node._gate != False:
+            if node._gate is not False:
                 gate_nodes.append(node)
         return gate_nodes
 
@@ -80,7 +79,7 @@ class Board():
             path_list.append(Path(netlist_gates))
 
         return path_list
-    
+
     def calculate_costs(self):
         ''' Calculate total costs. '''
         costs = 0
@@ -89,8 +88,8 @@ class Board():
             if not path._path:
                 costs += 100000
 
-        total_cost = costs + 300*self.calc_intersections() 
-        
+        total_cost = costs + 300*self.calc_intersections()
+
         return costs, self.calc_intersections(), total_cost
 
     def calc_intersections(self):
@@ -100,7 +99,7 @@ class Board():
             for node in path._path[1:-1]:
                 list_nodes.append(node)
         set_nodes = set(list_nodes)
-        
+
         return (len(list_nodes) - len(set_nodes))
 
     def calc_used_gate(self):
@@ -111,9 +110,9 @@ class Board():
                 for cor in self._gates.values():
                     if cor == node:
                         used_list.append(node)
-        return(len(used_list))     
+        return(len(used_list))
 
     def check_gate(self, node):
         '''Check if node contains gate. '''
-        if node._gate != False:
+        if node._gate is not False:
             return True
