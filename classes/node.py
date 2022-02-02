@@ -1,4 +1,5 @@
-from classes.gate import Gate 
+from classes.gate import Gate
+
 
 class Node():
     ''' Node object containing gates, its neighbouring nodes, and A*-costs. '''
@@ -26,15 +27,17 @@ class Node():
 
     def has_gate(self):
         ''' Check whether node contains gate. '''
-        if self._gate != False:
+        if self._gate is not False:
             return True
         return False
 
     def create_neighbours(self, nodes_list):
         ''' Add neighbouring objects to current node's neighbours. '''
         neighbours = []
-        x, y, z= self._coordinate
-        possible_neighbours = [(x+1, y, z), (x-1, y, z), (x, y+1, z), (x, y-1, z), (x, y, z+1), (x, y, z-1)]
+        x, y, z = self._coordinate
+        possible_neighbours = [(x+1, y, z), (x-1, y, z),
+                               (x, y+1, z), (x, y-1, z),
+                               (x, y, z+1), (x, y, z-1)]
         for node in nodes_list:
             if node._coordinate in possible_neighbours:
                 neighbours.append(node)
@@ -43,7 +46,7 @@ class Node():
     def get_neighbours(self):
         ''' Return neighbouring objects of current node. '''
         return self._neighbours
-    
+
     def set_occupied(self):
         ''' Set node as occupied. '''
         self._occupied = True
@@ -52,8 +55,8 @@ class Node():
         ''' Return all unused neighbours. '''
         possible_neighbours = []
         for neighbour in self._neighbours:
-            if neighbour._occupied == False:
-                if neighbour.has_gate() == False:
+            if not neighbour._occupied:
+                if not neighbour.has_gate():
                     possible_neighbours.append(neighbour)
         return possible_neighbours
 
