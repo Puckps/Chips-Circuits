@@ -75,8 +75,30 @@ def get_key(val, dict):
          if val == value:
              return key            
 
-def plot_hill_graph(hill_list):
+def plot_hill_graph(costs):
     ''' Plot cost graph for hill climber. '''
-    plt.clf()
-    plt.plot(hill_list)
-    plt.savefig("output/hill_graph.png")
+
+    # plot graph for run function
+    if isinstance(costs, list):
+
+        plt.clf()
+        plt.plot(costs, label = "lowest cost")
+
+        plt.xlabel("loops")
+        plt.ylabel("cost")
+
+        plt.savefig("output/hill_graph.png")
+
+    # plot graph for run_new function
+    else:
+        mutation_costs = costs[0]
+        lowest_costs = list(np.repeat(costs[1], 5))
+
+        plt.clf()
+        plt.plot(mutation_costs, label = "mutation cost")
+        plt.plot(lowest_costs, label = "lowest cost")
+
+        plt.xlabel("loops")
+        plt.ylabel("cost")
+
+        plt.savefig("output/hill_graph.png")
