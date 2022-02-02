@@ -1,6 +1,7 @@
 import classes
 from code.functions.functions import manhattan_distance
 
+
 class Greedy:
     """ Greedy pathfinding algorithm. """
     def __init__(self, path):
