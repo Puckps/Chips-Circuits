@@ -41,7 +41,7 @@ Wanneer dit gerund wordt ontstaat er een output file en de daarbij horende repre
 <br />
 De scores die uit de baseline komen zijn nog niet valide. Dit komt doordat de intersections niet op een geldige manier worden gebruikt. Het kan zo zijn dat ze pad stukken dubbelbezetten. Ook is er te zien dat bij chip_2 er nog gates worden gebruikt om paden te kunnen leggen. Om te zorgen dat dit zo min mogelijk gebeurd hebben we hier wel een kosten van 500 aan gegeven. De uitkomsten zijn via Mathplotlib ook gevisualiseerd. Deze visualisaties zijn 
 
-[hier](doc/greedy_uitkomsten.jpg)) terug te vinden.
+[hier](doc/greedy_uitkomsten.jpg) terug te vinden.
 
 ## Algoritme 1
 Het eerste algoritme dat wij hebben geimplementeerd is het A* algoritme. Dit algoritme vindt altijd een pad naar het eindpunt wanneer er een pad bestaat.
