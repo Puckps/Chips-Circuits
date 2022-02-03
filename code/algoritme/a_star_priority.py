@@ -15,7 +15,7 @@ class Heap:
             return self.h_cost < other.h_cost
         return self.f_cost < other.f_cost
 
-
+# inspiration from: https://www.youtube.com/watch?v=-L-WgKMFuhE&t=2s&ab_channel=SebastianLague
 class A_star:
     """ A* path-finding algorithm. """
     def __init__(self, path):
